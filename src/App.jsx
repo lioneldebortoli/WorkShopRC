@@ -5,6 +5,7 @@ function App() {
       <section>
         <main>
           
+          <CompraSegura />
         </main>
       </section>
     </>

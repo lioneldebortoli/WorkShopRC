@@ -1,11 +1,9 @@
-import React from 'react'
-
 const CompraSegura = () => {
   return (
-    <div>
+    <section id="comprar">
       
-    </div>
-  )
-}
+    </section>
+  );
+};
 
-export default CompraSegura
+export default CompraSegura;
