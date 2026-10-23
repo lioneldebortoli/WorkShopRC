@@ -22,18 +22,26 @@ const CompraSegura = () => {
   const cargo = Math.round(subtotal * 0.05);
   const total = subtotal + cargo;
 
-  return (
-    <section id="comprar" className="px-6">
-      <div className="mx-auto max-w-\[1312px\] px-6 py-14 lg:px-14">
+    return (
+    <section id="comprar" className="px-6 font-(family-name:--bs-body-font-family)">
+      <div className="mx-auto max-w-[1312px] rounded-[40px] bg-(image:--rc-gradient) px-6 py-14 text-(--rc-white) lg:px-14">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p>Compra segura</p>
-            <h1>Finalizá tu compra</h1>
+            <p className="text-base font-extrabold uppercase tracking-[3px]">Compra segura</p>
+            <h1 className="mt-3 text-[clamp(40px,6vw,64px)] font-extrabold leading-[1.03] tracking-[-1px]">
+              Finalizá tu compra
+            </h1>
           </div>
 
           <ol className="flex flex-wrap gap-2">
             {PASOS.map((nombre, i) => (
-              <li key={nombre}>
+              <li
+                key={nombre}
+                aria-current={paso === i + 1 ? "step" : undefined}
+                className={`rounded-full border px-4 py-1.5 text-sm font-extrabold ${
+                  paso === i + 1 ? "border-(--rc-black) bg-(--rc-black)" : "border-white/60"
+                }`}
+              >
                 {i + 1} {nombre}
               </li>
             ))}
@@ -41,7 +49,7 @@ const CompraSegura = () => {
         </div>
 
         <div className="mt-10 grid items-start gap-6 lg:grid-cols-[692fr_484fr]">
-          <div className="p-8">
+          <div className="rounded-[28px] bg-(--rc-white) p-8 text-(--rc-black)">
             {paso === 1 && (
               <StepEntrada
                 tickets={TICKETS}
@@ -53,7 +61,9 @@ const CompraSegura = () => {
               />
             )}
 
-            <p>Pasarela de pago de ejemplo: no se procesan pagos ni se guardan datos.</p>
+            <p className="mt-5 text-sm text-(--rc-gray-on-white)">
+              Pasarela de pago de ejemplo: no se procesan pagos ni se guardan datos.
+            </p>
           </div>
 
           <Resumen ticket={ticket} cantidad={cantidad} subtotal={subtotal} cargo={cargo} total={total} />
