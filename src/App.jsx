@@ -1,3 +1,5 @@
+import CompraSegura from "./components/CompraSegura"
+
 function App() {
 
   return (
