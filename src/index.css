@@ -22,3 +22,8 @@
   --bs-body-font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
 }
 
+body {
+  background: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  font-family: var(--bs-body-font-family);
+}

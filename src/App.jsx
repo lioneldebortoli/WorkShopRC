@@ -1,3 +1,5 @@
+import CompraSegura from "./components/CompraSegura"
+
 function App() {
 
   return (
@@ -5,6 +7,7 @@ function App() {
       <section>
         <main>
           
+          <CompraSegura />
         </main>
       </section>
     </>
