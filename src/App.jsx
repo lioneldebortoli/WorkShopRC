@@ -1,12 +1,10 @@
+import { Footer } from "./components/Footer"
 function App() {
 
   return (
     <>
-      <section>
-        <main>
-          
-        </main>
-      </section>
+      
+      <Footer/>
     </>
   )
 }
