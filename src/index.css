@@ -30,3 +30,7 @@ body {
   --bs-body-font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
 }
 
+.miContenedor{
+  background: var(--rc-gradient);
+}
+
