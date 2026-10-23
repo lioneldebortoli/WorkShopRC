@@ -34,3 +34,6 @@ body {
   background: var(--rc-gradient);
 }
 
+.cupos{
+  background: var(--rc-red);
+}
