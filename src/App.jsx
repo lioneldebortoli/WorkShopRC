@@ -1,14 +1,7 @@
-function App() {
+import Navbar from './components/Navbar.jsx'
 
-  return (
-    <>
-      <section>
-        <main>
-          
-        </main>
-      </section>
-    </>
-  )
+function App() {
+  return <Navbar />
 }
 
 export default App
