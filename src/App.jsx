@@ -1,10 +1,11 @@
-import { Footer } from "./components/Footer"
-function App() {
+import Navbar from './components/Navbar.jsx'
+import { Footer } from './components/Footer'
 
+function App() {
   return (
     <>
-      
-      <Footer/>
+      <Navbar />
+      <Footer />
     </>
   )
 }
