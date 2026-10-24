@@ -6,6 +6,7 @@
 
 body {
   font-family: var(--font-sans);
+  background-color: var(--rc-black)
 }
 
 :root {
@@ -36,4 +37,12 @@ body {
 
 .cupos{
   background: var(--rc-red);
+}
+
+.agenda{
+  color: var(--rc-red)
+}
+
+.horario{
+  color: var(--rc-red)
 }

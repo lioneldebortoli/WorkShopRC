@@ -4,7 +4,7 @@ import entrada from "../assets/iconos/entrada.svg";
 
 export const HeroPublicidad = () => {
   return (
-    <section className="miContenedor w-190 rounded-2xl py-8 px-6 max-w-4xl mx-auto text-white">
+    <section className="miContenedor mt-10 w-190 rounded-2xl py-8 px-6 max-w-4xl mx-auto text-white">
       <div>
         <h4 className="mb-3">
           <span className="italic">WORKSHOP</span>{" "}
