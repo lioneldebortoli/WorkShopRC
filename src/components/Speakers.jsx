@@ -98,10 +98,10 @@ export const Speakers = () => {
       </h2>
 
       <ul className="mt-10 grid grid-cols-5 gap-6">
-        {SPEAKERS.map((speaker, i) => (
+        {SPEAKERS.map((speaker) => (
           <li
             key={speaker.nombre}
-            className="rounded-[32px] border border-(--rc-border) bg-(--rc-surface) p-4"
+            className="group rounded-[32px] border border-(--rc-border) bg-(--rc-surface) p-4 transition duration-300 hover:-translate-y-2 hover:border-(--rc-red) hover:shadow-[0_16px_40px_rgba(224,32,42,0.25)]"
           >
             <div className="aspect-square overflow-hidden rounded-3xl">
               <img
@@ -111,14 +111,10 @@ export const Speakers = () => {
                 className={`h-full w-full object-cover object-top ${speaker.encuadre ?? ""}`}
               />
             </div>
-            <h3 className="mt-5 text-[26px] font-extrabold leading-tight">
+            <h3 className="mt-5 text-[clamp(20px,1.9vw,26px)] font-extrabold leading-tight">
               {speaker.nombre}
             </h3>
-            <p
-              className={`mt-3 rounded-[14px] px-4 py-2.5 font-extrabold leading-tight ${
-                i === 0 ? "bg-(--rc-red)" : "bg-(--rc-surface-2)"
-              }`}
-            >
+            <p className="mt-3 rounded-[14px] bg-(--rc-surface-2) px-4 py-2.5 font-extrabold leading-tight transition-colors duration-300 group-hover:bg-(--rc-red)">
               {speaker.charla}
             </p>
             <p className="mt-4 leading-[1.55] text-(--rc-text-soft)">
