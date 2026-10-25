@@ -46,3 +46,7 @@ body {
 .horario{
   color: var(--rc-red)
 }
+
+.comoLlegar{
+  color: var(--rc-red)
+}
