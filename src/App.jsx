@@ -1,3 +1,4 @@
+import Entradas from "./components/Entradas"
 import Navbar from './components/Navbar.jsx'
 import { HeroPublicidad } from './components/HeroPublicidad'
 import { Agenda } from './components/Agenda'
@@ -16,6 +17,7 @@ function App() {
           
           <HeroPublicidad />
           <Agenda />
+        <Entradas />
           <CompraSegura />
         </main>
       </section>
