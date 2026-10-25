@@ -210,7 +210,7 @@ function Card({
         ${fullWidth ? "mt-0" : ""}
       `}
     >
-      {/* Badge superior derecho */}
+      
       {card.badge && (
         <span
           className={`absolute top-4 right-4 text-xs px-3 py-1 rounded-full font-medium
