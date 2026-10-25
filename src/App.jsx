@@ -13,8 +13,8 @@ function App() {
       <section>
         <main>
           <HeroPublicidad />
-          <Agenda />
           <Speakers />
+          <Agenda />
           <CompraSegura />
         </main>
       </section>
