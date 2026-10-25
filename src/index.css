@@ -50,3 +50,7 @@ body {
 .comoLlegar{
   color: var(--rc-red)
 }
+
+.mapa{
+  background-color: var(--rc-red);
+}
