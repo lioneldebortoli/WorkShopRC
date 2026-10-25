@@ -28,7 +28,7 @@ const TICKETS = [
 
 const PASOS = ["Entrada", "Datos", "Pago", "Listo"];
 
-const CompraSegura = () => {
+export const CompraSegura = () => {
   const [paso, setPaso] = useState(1);
 
   const [ticketId, setTicketId] = useState("early");
@@ -43,7 +43,7 @@ const CompraSegura = () => {
   return (
     <section
       id="comprar"
-      className="px-6 font-(family-name:--bs-body-font-family)"
+      className="px-6 font-(family-name:--bs-body-font-family) mt-20"
     >
       <div className="mx-auto max-w-\[1312px\] rounded-[40px] bg-(image:--rc-gradient) px-6 py-14 text-(--rc-white) lg:px-14">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
