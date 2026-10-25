@@ -119,12 +119,12 @@ const SpeakerCard = ({ speaker, indice }) => {
     <li
       ref={ref}
       style={{ transitionDelay: `${(indice % 5) * 80}ms` }}
-      className={`transition-all duration-800 ${EASE} motion-reduce:transition-none ${
+      className={`shrink-0 basis-[min(74vw,300px)] snap-center transition-all duration-800 ${EASE} motion-reduce:transition-none md:basis-auto ${
         visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
       }`}
     >
       <article
-        className={`group h-full rounded-[32px] border border-(--rc-border) bg-(--rc-surface) p-4 transition duration-450 ${EASE} hover:-translate-y-2.5 hover:border-(--rc-red) hover:bg-[#161618] hover:shadow-[0_22px_50px_rgba(224,32,42,0.28)]`}
+        className={`group h-full rounded-[32px] border border-(--rc-border) bg-(--rc-surface) p-4 transition duration-450 ${EASE} md:hover:-translate-y-2.5 hover:border-(--rc-red) hover:bg-[#161618] hover:shadow-[0_22px_50px_rgba(224,32,42,0.28)]`}
       >
         <div className="relative aspect-square overflow-hidden rounded-3xl">
           <div className={`h-full w-full transition-transform duration-600 ${EASE} group-hover:scale-108`}>
@@ -166,7 +166,7 @@ export const Speakers = () => {
         Diez charlas, un mismo objetivo
       </h2>
 
-      <ul className="mt-10 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+      <ul className="-mx-6 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-3 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-5">
         {SPEAKERS.map((speaker, i) => (
           <SpeakerCard key={speaker.nombre} speaker={speaker} indice={i} />
         ))}
