@@ -12,9 +12,9 @@ function App() {
 
       <section>
         <main>
-        <Entradas />
           <HeroPublicidad />
           <Agenda />
+        <Entradas />
           <CompraSegura />
         </main>
       </section>
