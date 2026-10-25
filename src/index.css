@@ -4,11 +4,6 @@
   --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
 }
 
-body {
-  font-family: var(--font-sans);
-  background-color: var(--rc-black)
-}
-
 :root {
   --rc-red: #e0202a;
   --rc-red-dark: #a50d14;
@@ -29,6 +24,12 @@ body {
   --bs-body-bg: var(--rc-black);
   --bs-body-color: var(--rc-white);
   --bs-body-font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--bs-body-color);
+  background-color: var(--rc-black)
 }
 
 .miContenedor{
