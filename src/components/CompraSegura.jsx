@@ -45,7 +45,7 @@ export const CompraSegura = () => {
       id="comprar"
       className="px-6 font-(family-name:--bs-body-font-family) mt-14"
     >
-      <div className="mx-auto max-w-\[1312px\] rounded-[40px] bg-(image:--rc-gradient) px-6 py-14 text-(--rc-white) lg:px-14">
+      <div className="mx-auto max-w-328 rounded-[40px] bg-(image:--rc-gradient) px-6 py-14 text-(--rc-white) lg:px-14">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-base font-extrabold uppercase tracking-[3px]">
