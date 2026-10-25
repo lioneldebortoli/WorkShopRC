@@ -5,12 +5,15 @@ import { CompraSegura } from './components/CompraSegura'
 import { Footer } from './components/Footer'
 
 function App() {
+
+
   return (
     <>
       <Navbar />
 
       <section>
         <main>
+          
           <HeroPublicidad />
           <Agenda />
           <CompraSegura />
