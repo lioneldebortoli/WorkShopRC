@@ -10,6 +10,7 @@ const NAV_LINKS = [
 
 const BUY_LINK = { label: "Comprar entrada", href: "#comprar-entrada" };
 
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
