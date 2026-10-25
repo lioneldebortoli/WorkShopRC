@@ -33,10 +33,21 @@ const SPEAKERS = [
 ];
 
 export const Speakers = () => {
-  return (
+    return (
     <section id="speakers">
       <p>Speakers</p>
       <h2>Diez charlas, un mismo objetivo</h2>
+
+      <ul>
+        {SPEAKERS.map((speaker) => (
+          <li key={speaker.nombre}>
+            <img src={speaker.foto} alt={`Foto de ${speaker.nombre}`} loading="lazy" />
+            <h3>{speaker.nombre}</h3>
+            <p>{speaker.charla}</p>
+            <p>{speaker.descripcion}</p>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 };
