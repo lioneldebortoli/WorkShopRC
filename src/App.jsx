@@ -1,5 +1,5 @@
 import { CompraSegura } from "./components/CompraSegura"
-import { Navbar } from './components/Navbar.jsx'
+import Navbar from './components/Navbar.jsx'
 import { HeroPublicidad } from './components/HeroPublicidad'
 import { Agenda } from './components/Agenda'
 import { CompraSegura } from './components/CompraSegura'
