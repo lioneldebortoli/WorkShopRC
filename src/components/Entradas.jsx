@@ -1,4 +1,8 @@
+import checkBlanco from "../assets/iconos/check-blanco.svg";
+import checkRojo from "../assets/iconos/check-rojo.svg";
 import { useState, useEffect } from "react";
+import { Reveal } from "./Reveal";
+import { useEnPantalla } from "../hooks/useEnPantalla";
 
 const EARLY_BIRD_DEADLINE = new Date(2026, 9, 31, 23, 59, 59).getTime();
 
@@ -18,6 +22,7 @@ export default function Entradas() {
   const [timeLeft, setTimeLeft] = useState(getTimeLeft);
   const [selected, setSelected] = useState("early");
   const [confirmedTicket, setConfirmedTicket] = useState(null);
+  const [barraRef, barraVisible] = useEnPantalla(0.5);
 
   function selectCard(id) {
     setSelected(id);
@@ -29,7 +34,6 @@ export default function Entradas() {
     setConfirmedTicket(id);
   }
 
-  
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeLeft(getTimeLeft());
@@ -86,104 +90,93 @@ export default function Entradas() {
   ];
 
   return (
-    <section id="entradas" className="bg-black text-white py-16 px-4">
-      <div className="max-w-5xl mx-auto">
-       
-        <div className="mb-10">
-          <p className="text-red-500 text-sm font-semibold tracking-widest mb-2">
-            ENTRADAS
+    <section id="entradas" className="mx-auto mt-24 max-w-[1248px] px-6 text-(--rc-white)">
+      <Reveal>
+        <p className="text-base font-extrabold uppercase tracking-[3px] text-(--rc-red)">
+          Entradas
+        </p>
+        <h2 className="mt-3 text-[clamp(34px,4.5vw,56px)] font-extrabold leading-[1.05] tracking-[-1px]">
+          Asegurá tu lugar antes de que suba el precio
+        </h2>
+      </Reveal>
+
+      <Reveal
+        retraso={100}
+        className="mt-10 flex flex-col gap-8 rounded-[32px] border border-(--rc-border) bg-[linear-gradient(90deg,#1c0c0d,var(--rc-surface))] p-6 md:p-9 lg:flex-row lg:items-center lg:justify-between"
+      >
+        <div className="lg:max-w-[360px]">
+          <p className="text-sm font-extrabold uppercase tracking-[3px] text-(--rc-red)">
+            Early Bird
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold">
-            Asegurá tu lugar antes de que suba el precio
-          </h2>
+          <p className="mt-2 text-[28px] font-extrabold leading-tight">
+            El precio especial termina el 31/10
+          </p>
+          <p className="mt-2 text-base text-(--rc-text-soft)">
+            Después la entrada pasa de $25.000 a $35.000.
+          </p>
         </div>
 
-        
-        <div className="bg-gradient-to-r from-red-950 to-zinc-950 border border-zinc-800 rounded-2xl p-5 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div>
-            <p className="text-red-500 text-xs font-bold tracking-wider mb-1">
-              EARLY BIRD
-            </p>
-            <p className="font-semibold text-lg">
-              El precio especial termina el 31/10
-            </p>
-            <p className="text-zinc-400 text-sm mt-1">
-              Después la entrada pasa de $25.000 a $35.000.
-            </p>
-          </div>
-
-          
-          <div className="flex items-center gap-2 sm:gap-3">
-            {[
-              { value: timeLeft.days, label: "DÍAS" },
-              { value: timeLeft.hours, label: "HORAS" },
-              { value: timeLeft.minutes, label: "MIN" },
-              { value: timeLeft.seconds, label: "SEG" },
-            ].map((item) => (
-              <div
-                key={item.label}
-                className="bg-zinc-950 rounded-xl px-3 sm:px-4 py-3 text-center min-w-[62px] sm:min-w-[70px]"
-              >
-                <div className="text-2xl font-bold">
-                  {String(item.value).padStart(2, "0")}
-                </div>
-                <div className="text-xs text-zinc-400 mt-1">{item.label}</div>
+        <div className="grid grid-cols-4 gap-2 md:flex md:gap-3">
+          {[
+            { value: timeLeft.days, label: "DÍAS" },
+            { value: timeLeft.hours, label: "HORAS" },
+            { value: timeLeft.minutes, label: "MIN" },
+            { value: timeLeft.seconds, label: "SEG" },
+          ].map((item) => (
+            <div
+              key={item.label}
+              className="min-w-0 rounded-[18px] border border-(--rc-border) bg-(--rc-black) px-2 py-3 text-center md:min-w-[100px] md:px-3"
+            >
+              <div className="text-[28px] font-extrabold leading-none tabular-nums md:text-[40px]">
+                {String(item.value).padStart(2, "0")}
               </div>
-            ))}
-          </div>
-
-          
-          <div className="w-full md:w-48">
-            <div className="flex justify-between text-xs text-zinc-400 mb-1">
-              <span>Quedan 38 de 60 Early Bird</span>
-              <span>63% vendidas</span>
+              <div className="mt-1.5 text-xs tracking-[2px] text-(--rc-text-mute)">{item.label}</div>
             </div>
-            <div className="h-2 bg-zinc-800 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-red-500 rounded-full"
-                style={{ width: "63%" }}
-              />
-            </div>
-          </div>
+          ))}
         </div>
 
-       
-        <div className="grid md:grid-cols-2 gap-5 mb-5">
-          {cards.slice(0, 2).map((card) => (
+        <div className="w-full lg:w-[360px]">
+          <div className="flex justify-between text-sm">
+            <span className="font-semibold">Quedan 38 de 60 Early Bird</span>
+            <span className="text-(--rc-text-mute)">63% vendidas</span>
+          </div>
+          <div ref={barraRef} className="mt-2 h-2 overflow-hidden rounded-full bg-(--rc-surface-2)">
+            <div
+              className="h-full rounded-full bg-(--rc-red) transition-[width] delay-300 duration-1200 ease-out motion-reduce:transition-none"
+              style={{ width: barraVisible ? "63%" : "0%" }}
+            />
+          </div>
+        </div>
+      </Reveal>
+
+      <div className="mt-6 grid gap-6 md:grid-cols-2">
+        {cards.slice(0, 2).map((card, i) => (
+          <Reveal key={card.id} retraso={i * 120} className="h-full">
             <Card
-              key={card.id}
               card={card}
               selected={selected === card.id}
               confirmed={confirmedTicket === card.id}
               onSelect={() => selectCard(card.id)}
               onBuy={() => confirmTicket(card.id)}
             />
-          ))}
-        </div>
+          </Reveal>
+        ))}
+      </div>
 
-       
+      <Reveal className="mt-6">
         <Card
           card={cards[2]}
           selected={selected === "virtual"}
           confirmed={confirmedTicket === "virtual"}
           onSelect={() => selectCard("virtual")}
           onBuy={() => confirmTicket("virtual")}
-          fullWidth
         />
-       
-      </div>
+      </Reveal>
     </section>
   );
 }
 
-function Card({
-  card,
-  selected,
-  confirmed,
-  onSelect,
-  onBuy,
-  fullWidth = false,
-}) {
+function Card({ card, selected, confirmed, onSelect, onBuy }) {
   return (
     <div
       onClick={onSelect}
@@ -199,48 +192,44 @@ function Card({
       role="button"
       tabIndex={0}
       aria-pressed={selected}
-      className={`
-        relative flex h-full flex-col rounded-2xl p-6 cursor-pointer transition-all duration-300
-        border-2
-        ${
-          selected
-            ? "border-red-500 bg-gradient-to-br from-red-700 to-red-900 shadow-lg shadow-red-900/20"
-            : "border-zinc-800 bg-zinc-900 hover:border-red-500/70"
-        }
-        ${fullWidth ? "mt-0" : ""}
-      `}
+      className={`relative flex h-full cursor-pointer flex-col rounded-[32px] border p-6 transition-all duration-300 md:p-9 ${
+        selected
+          ? "border-transparent bg-(image:--rc-gradient) shadow-[0_22px_50px_rgba(224,32,42,0.25)]"
+          : "border-(--rc-border) bg-(--rc-surface) hover:border-(--rc-red)"
+      }`}
     >
-      
-      {card.badge && (
-        <span
-          className={`absolute top-4 right-4 text-xs px-3 py-1 rounded-full font-medium
-            ${
-              selected
-                ? "bg-red-500/30 text-red-200"
-                : "bg-zinc-800 text-zinc-300"
+      <div className="flex items-start justify-between gap-4">
+        <h3 className="text-2xl font-extrabold">{card.title}</h3>
+        {card.badge && (
+          <span
+            className={`whitespace-nowrap rounded-full px-3.5 py-1 text-sm font-extrabold ${
+              selected ? "bg-(--rc-black)" : "border border-(--rc-chip-border) text-(--rc-text-soft)"
             }`}
-        >
-          {card.badge}
+          >
+            {card.badge}
+          </span>
+        )}
+      </div>
+
+      <div className="mt-5 flex flex-wrap items-end gap-3">
+        <span className="text-[clamp(44px,5vw,56px)] font-extrabold leading-none tracking-[-1px]">
+          {card.price}
         </span>
-      )}
-
-      <h3 className="text-xl font-bold mb-1">{card.title}</h3>
-
-      <div className="flex items-end gap-2 mb-2">
-        <span className="text-3xl font-bold">{card.price}</span>
         {card.oldPrice && (
-          <span className="text-zinc-400 line-through text-lg mb-1">
+          <span className="mb-1 text-xl text-(--rc-pink-soft) line-through opacity-80">
             {card.oldPrice}
           </span>
         )}
       </div>
 
-      <p className="text-sm text-zinc-300 mb-5">{card.subtitle}</p>
+      <p className={`mt-4 text-base ${selected ? "text-(--rc-pink-soft)" : "text-(--rc-text-mute)"}`}>
+        {card.subtitle}
+      </p>
 
-      <ul className="mb-6 flex-grow space-y-2.5">
+      <ul className="mt-6 mb-8 grow space-y-3">
         {card.features.map((feature) => (
-          <li key={feature} className="flex items-start gap-2 text-sm">
-            <span className="text-red-400 mt-0.5">✓</span>
+          <li key={feature} className="flex items-start gap-3 text-base md:text-lg">
+            <img src={selected ? checkBlanco : checkRojo} alt="" className="mt-1 h-5 w-5 shrink-0" />
             <span>{feature}</span>
           </li>
         ))}
@@ -252,14 +241,11 @@ function Card({
           event.stopPropagation();
           onBuy();
         }}
-        className={`
-          mt-auto w-full py-3 rounded-full font-semibold transition-all duration-300
-          ${
-            selected
-              ? "bg-white text-black hover:bg-zinc-100"
-              : "bg-transparent border border-zinc-600 text-white hover:border-red-50 hover:text-red-50"
-          }
-        `}
+        className={`mt-auto min-h-[52px] w-full cursor-pointer rounded-full text-lg font-extrabold transition-all duration-300 ${
+          selected
+            ? "bg-(--rc-white) text-(--rc-black) hover:bg-(--rc-pink-soft)"
+            : "border-2 border-(--rc-white) hover:bg-(--rc-white) hover:text-(--rc-black)"
+        }`}
       >
         {confirmed ? "Entrada seleccionada" : "Comprar entrada"}
       </button>
