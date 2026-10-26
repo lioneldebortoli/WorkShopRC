@@ -2,7 +2,7 @@
 
 Landing page para vender las entradas del workshop **"¿Por dónde empiezo a programar?"** de Rolling Code School: una tarde con diez speakers para ordenar los primeros pasos en programación.
 
-🔗 **Página online:** https://TU-LINK-DE-VERCEL.vercel.app
+🔗 **Página online:** https://work-shop-rc.vercel.app
 📁 **Repositorio:** https://github.com/lioneldebortoli/WorkShopRC
 
 ---
