@@ -3,13 +3,12 @@ import "./Navbar.css";
 import logo from "../assets/logo/logo-rolling-blanco.png";
 
 const NAV_LINKS = [
-  { label: "Speakers", href: "#speakers" },
-  { label: "Agenda", href: "#agenda" },
-  { label: "Como llegar", href: "#como-llegar" },
+  { label: "Speakers", href: "/#speakers" },
+  { label: "Agenda", href: "/#agenda" },
+  { label: "Como llegar", href: "/#como-llegar" },
 ];
 
-const BUY_LINK = { label: "Comprar entrada", href: "#comprar-entrada" };
-
+const BUY_LINK = { label: "Comprar entrada", href: "/#comprar" };
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -27,8 +26,7 @@ export default function Navbar() {
   return (
     <header className={`navbar ${scrolled ? "navbar--scrolled" : ""}`}>
       <nav className="navbar__container" aria-label="Navegación principal">
-            
-        <a href="#inicio" className="navbar__logo" onClick={closeMenu}>
+        <a href="/#inicio" className="navbar__logo" onClick={closeMenu}>
           <img
             src={logo}
             alt="Rolling Code School"
@@ -43,9 +41,7 @@ export default function Navbar() {
           aria-expanded={menuOpen}
           aria-controls="navbar-menu"
           onClick={() => setMenuOpen((prev) => !prev)}
-        >
-
-        </button>
+        ></button>
 
         <ul
           id="navbar-menu"
