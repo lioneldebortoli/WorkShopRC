@@ -11,7 +11,7 @@ const ABRIR_MAPA_URL =
 
 export const UbicacionEvento = () => {
   return (
-    <section id="como-llegar" className="mx-auto mt-24 max-w-[1248px] px-6 text-(--rc-white)">
+    <section id="como-llegar" className="mx-auto mt-24 max-w-[1248px] overflow-x-clip px-6 text-(--rc-white)">
       <div className="grid items-center gap-10 lg:grid-cols-[5fr_7fr] lg:gap-12">
         <Reveal desde="izquierda">
           <p className="text-base font-extrabold uppercase tracking-[3px] text-(--rc-red)">
