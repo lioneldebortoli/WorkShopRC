@@ -4,6 +4,7 @@ import logo from "../assets/logo/logo-rolling-blanco.png";
 const LINKS = [
   { id: "speakers", texto: "Speakers" },
   { id: "agenda", texto: "Agenda" },
+  { id: "sponsors", texto: "Sponsors" },
   { id: "como-llegar", texto: "Cómo llegar" },
 ];
 

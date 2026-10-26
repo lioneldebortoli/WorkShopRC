@@ -12,6 +12,7 @@ import NotFound from "./pages/Error404.jsx"
 import { UbicacionEvento } from "./components/UbicacionEvento.jsx"
 import { BotonArriba } from "./components/BotonArriba.jsx"
 import { Chatbot } from "./components/Chatbot.jsx"
+import { Sponsors } from "./components/Sponsors.jsx"
 
 function Landing() {
   const [ticketId, setTicketId] = useState("early")
@@ -29,6 +30,7 @@ function Landing() {
         <Estadisticas />
         <Speakers />
         <Agenda />
+        <Sponsors />
         <Entradas onComprar={irAComprar} />
         <CompraSegura ticketId={ticketId} setTicketId={setTicketId} />
         <UbicacionEvento />
