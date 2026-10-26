@@ -41,6 +41,13 @@ const RESPUESTAS = [
     texto: "Sí, todas las entradas incluyen certificado de asistencia, también la virtual.",
   },
   {
+    id: "sponsor",
+    pregunta: "¿Cómo ser sponsor?",
+    claves: ["sponsor", "patrocin", "auspici", "empresa", "marca"],
+    texto: "¡Buenísimo! Completá el formulario \"Sumate como Sponsor\" con los datos de tu empresa y te contactamos en menos de 24 horas hábiles.",
+    seccion: { id: "sumate-sponsor", texto: "Ir al formulario" },
+  },
+  {
     id: "comprar",
     pregunta: "Quiero comprar",
     claves: ["comprar", "compra", "entrada", "ticket", "tarjeta", "inscrib"],

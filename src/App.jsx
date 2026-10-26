@@ -13,6 +13,7 @@ import { UbicacionEvento } from "./components/UbicacionEvento.jsx"
 import { BotonArriba } from "./components/BotonArriba.jsx"
 import { Chatbot } from "./components/Chatbot.jsx"
 import { Sponsors } from "./components/Sponsors.jsx"
+import { SumateSponsor } from "./components/SumateSponsor.jsx"
 
 function Landing() {
   const [ticketId, setTicketId] = useState("early")
@@ -33,6 +34,7 @@ function Landing() {
         <Sponsors />
         <Entradas onComprar={irAComprar} />
         <CompraSegura ticketId={ticketId} setTicketId={setTicketId} />
+        <SumateSponsor />
         <UbicacionEvento />
       </main>
       <Footer />
