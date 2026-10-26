@@ -48,30 +48,6 @@ body {
   background: var(--rc-gradient);
 }
 
-/* ===== Clases viejas: borrar cuando estén los nuevos Hero, Agenda y Ubicación ===== */
-
-.cupos {
-  background: var(--rc-red);
-}
-
-.agenda {
-  color: var(--rc-red);
-}
-
-.horario {
-  color: var(--rc-red);
-}
-
-.comoLlegar {
-  color: var(--rc-red);
-}
-
-.mapa {
-  background-color: var(--rc-red);
-}
-
-/* ===== Navbar ===== */
-
 .navbar {
   position: sticky;
   top: 0;
