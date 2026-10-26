@@ -1,4 +1,7 @@
 import { Reveal } from "./Reveal";
+import mercadoLibre from "../assets/sponsors/mercado-libre-logo.png";
+import microsoft from "../assets/sponsors/Microsoft_Logo_256px.png";
+import globant from "../assets/sponsors/globant_icono_256x256.png";
 
 const ICONOS = "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons";
 
@@ -32,8 +35,8 @@ const NIVELES = [
       },
       {
         nombre: "Mercado Libre",
-        iniciales: "ML",
-        colorLogo: "#FFE600",
+        imagen: mercadoLibre,
+        tamanoImagen: "h-4/5 w-4/5",
         etiqueta: "Fintech & E-commerce",
         descripcion: "El mayor ecosistema tech de Latinoamérica impulsando becas, hackathons y pasantías directas de empleo.",
         rubro: "Fintech Scale",
@@ -49,9 +52,9 @@ const NIVELES = [
     texto: "Líderes de producto, frameworks y transformación digital global",
     color: "#e8c547",
     empresas: [
-      { nombre: "Microsoft", microsoft: true, detalle: "Azure & Dev Tools", etiqueta: "Enterprise" },
+      { nombre: "Microsoft", imagen: microsoft, detalle: "Azure & Dev Tools", etiqueta: "Enterprise" },
       { nombre: "GitHub", icono: "github", colorLogo: "#FFFFFF", detalle: "Open Source & Copilot", etiqueta: "Community" },
-      { nombre: "Globant", iniciales: "G", colorLogo: "#BFD732", detalle: "Tech Reinvention", etiqueta: "Global Talent" },
+      { nombre: "Globant", imagen: globant, detalle: "Tech Reinvention", etiqueta: "Global Talent" },
       { nombre: "Auth0", icono: "auth0", colorLogo: "#EB5424", detalle: "Identity & Security", etiqueta: "Security" },
       { nombre: "Vercel", icono: "vercel", colorLogo: "#FFFFFF", detalle: "Frontend Cloud & Next", etiqueta: "Deployment" },
     ],
@@ -77,25 +80,15 @@ const NIVELES = [
 const Logo = ({ empresa, tamano }) => {
   const caja = `flex shrink-0 items-center justify-center rounded-2xl border border-(--rc-border) bg-(--rc-black) ${tamano}`;
 
-  if (empresa.microsoft) {
+  if (empresa.imagen) {
     return (
       <span className={caja} aria-hidden="true">
-        <span className="grid h-1/2 w-1/2 grid-cols-2 gap-0.5">
-          <span className="bg-[#F25022]" />
-          <span className="bg-[#7FBA00]" />
-          <span className="bg-[#00A4EF]" />
-          <span className="bg-[#FFB900]" />
-        </span>
-      </span>
-    );
-  }
-
-  if (empresa.iniciales) {
-    return (
-      <span className={caja} aria-hidden="true">
-        <span className="text-[1.6em] leading-none font-extrabold" style={{ color: empresa.colorLogo }}>
-          {empresa.iniciales}
-        </span>
+        <img
+          src={empresa.imagen}
+          alt=""
+          loading="lazy"
+          className={`object-contain ${empresa.tamanoImagen ?? "h-3/5 w-3/5"}`}
+        />
       </span>
     );
   }
