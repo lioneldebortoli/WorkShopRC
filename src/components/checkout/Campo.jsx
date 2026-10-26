@@ -11,7 +11,7 @@ export default function Campo({ label, error, ...props }) {
       <input
         id={id}
         aria-invalid={error ? "true" : undefined}
-        className={`h-12 w-full rounded-[14px] border-2 px-4 py-\[14px\] outline-none focus:border-(--rc-black) ${
+        className={`h-12 w-full rounded-[14px] border-2 px-4 py-[14px] outline-none focus:border-(--rc-black) ${
           error ? "border-(--rc-red)" : "border-(--rc-input-border)"
         }`}
         {...props}
