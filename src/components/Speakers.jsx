@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Reveal } from "./Reveal";
 import tomasEscudero from "../assets/speakers/speaker-01-tomas-escudero.jpg";
 import francoDiaz from "../assets/speakers/speaker-02-franco-diaz.jpeg";
 import gaston from "../assets/speakers/speaker-03-gaston.jpg";
@@ -159,12 +160,14 @@ const SpeakerCard = ({ speaker, indice }) => {
 export const Speakers = () => {
   return (
     <section id="speakers" className="mx-auto mt-24 max-w-[1248px] px-6 text-(--rc-white)">
-      <p className="text-base font-extrabold uppercase tracking-[3px] text-(--rc-red)">
-        Speakers
-      </p>
-      <h2 className="mt-3 text-[clamp(34px,4.5vw,56px)] font-extrabold leading-[1.05] tracking-[-1px]">
-        Diez charlas, un mismo objetivo
-      </h2>
+      <Reveal>
+        <p className="text-base font-extrabold uppercase tracking-[3px] text-(--rc-red)">
+          Speakers
+        </p>
+        <h2 className="mt-3 text-[clamp(34px,4.5vw,56px)] font-extrabold leading-[1.05] tracking-[-1px]">
+          Diez charlas, un mismo objetivo
+        </h2>
+      </Reveal>
 
       <ul className="-mx-6 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-3 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-5">
         {SPEAKERS.map((speaker, i) => (
