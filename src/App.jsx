@@ -11,6 +11,7 @@ import { Footer } from './components/Footer'
 import NotFound from "./pages/Error404.jsx"
 import { UbicacionEvento } from "./components/UbicacionEvento.jsx"
 import { BotonArriba } from "./components/BotonArriba.jsx"
+import { Chatbot } from "./components/Chatbot.jsx"
 
 function Landing() {
   const [ticketId, setTicketId] = useState("early")
@@ -34,6 +35,7 @@ function Landing() {
       </main>
       <Footer />
       <BotonArriba />
+      <Chatbot />
     </>
   )
 }
