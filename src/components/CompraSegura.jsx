@@ -74,7 +74,7 @@ export const CompraSegura = ({ ticketId, setTicketId }) => {
         </div>
 
         <div className="mt-10 grid items-start gap-6 lg:grid-cols-[692fr_484fr]">
-          <div className="rounded-[28px] bg-(--rc-white) p-8 text-(--rc-black)">
+          <div className="rounded-[28px] bg-(--rc-white) p-5 text-(--rc-black) sm:p-8">
             {paso === 1 && (
               <StepEntrada
                 tickets={TICKETS}
