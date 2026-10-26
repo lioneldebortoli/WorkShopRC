@@ -4,6 +4,7 @@ import StepEntrada from "./checkout/StepEntrada";
 import StepDatos from "./checkout/StepDatos";
 import StepPago from "./checkout/StepPago";
 import StepListo from "./checkout/StepListo";
+import { Reveal } from "./Reveal";
 
 const TICKETS = [
   {
@@ -45,15 +46,15 @@ export const CompraSegura = () => {
       id="comprar"
       className="px-6 font-(family-name:--bs-body-font-family) mt-14"
     >
-      <div className="mx-auto max-w-328 rounded-[40px] bg-(image:--rc-gradient) px-6 py-14 text-(--rc-white) lg:px-14">
+      <Reveal className="mx-auto max-w-328 rounded-[40px] bg-(image:--rc-gradient) px-6 py-14 text-(--rc-white) lg:px-14">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-base font-extrabold uppercase tracking-[3px]">
               Compra segura
             </p>
-            <h1 className="mt-3 text-[clamp(40px,6vw,64px)] font-extrabold leading-[1.03] tracking-[-1px]">
+            <h2 className="mt-3 text-[clamp(40px,6vw,64px)] font-extrabold leading-[1.03] tracking-[-1px]">
               Finalizá tu compra
-            </h1>
+            </h2>
           </div>
 
           <ol className="flex flex-wrap gap-2">
@@ -115,7 +116,7 @@ export const CompraSegura = () => {
             total={total}
           />
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 };
