@@ -47,3 +47,11 @@ body {
 .horario{
   color: var(--rc-red)
 }
+
+.comoLlegar{
+  color: var(--rc-red)
+}
+
+.mapa{
+  background-color: var(--rc-red);
+}
