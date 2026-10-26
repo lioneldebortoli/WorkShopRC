@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Route, Routes } from "react-router"
 import Navbar from './components/Navbar.jsx'
 import { HeroPublicidad } from './components/HeroPublicidad'
@@ -11,6 +12,13 @@ import NotFound from "./pages/Error404.jsx"
 import { UbicacionEvento } from "./components/UbicacionEvento.jsx"
 
 function Landing() {
+  const [ticketId, setTicketId] = useState("early")
+
+  const irAComprar = (id) => {
+    setTicketId(id)
+    document.getElementById("comprar").scrollIntoView({ behavior: "smooth" })
+  }
+
   return (
     <>
       <Navbar />
@@ -19,8 +27,8 @@ function Landing() {
         <Estadisticas />
         <Speakers />
         <Agenda />
-        <Entradas />
-        <CompraSegura />
+        <Entradas onComprar={irAComprar} />
+        <CompraSegura ticketId={ticketId} setTicketId={setTicketId} />
         <UbicacionEvento />
       </main>
       <Footer />

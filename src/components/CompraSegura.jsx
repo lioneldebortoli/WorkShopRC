@@ -29,10 +29,9 @@ const TICKETS = [
 
 const PASOS = ["Entrada", "Datos", "Pago", "Listo"];
 
-export const CompraSegura = () => {
+export const CompraSegura = ({ ticketId, setTicketId }) => {
   const [paso, setPaso] = useState(1);
 
-  const [ticketId, setTicketId] = useState("early");
   const [cantidad, setCantidad] = useState(1);
   const [datos, setDatos] = useState({ nombre: "", email: "", dni: "" });
 

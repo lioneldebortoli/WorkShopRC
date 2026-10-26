@@ -18,7 +18,7 @@ function getTimeLeft() {
   };
 }
 
-export default function Entradas() {
+export default function Entradas({ onComprar }) {
   const [timeLeft, setTimeLeft] = useState(getTimeLeft);
   const [selected, setSelected] = useState("early");
   const [confirmedTicket, setConfirmedTicket] = useState(null);
@@ -32,6 +32,7 @@ export default function Entradas() {
   function confirmTicket(id) {
     setSelected(id);
     setConfirmedTicket(id);
+    onComprar(id);
   }
 
   useEffect(() => {
