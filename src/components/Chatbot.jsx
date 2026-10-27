@@ -110,7 +110,7 @@ export const Chatbot = () => {
     return () => window.removeEventListener("keydown", cerrarConEscape);
   }, [abierto]);
 
-    const preguntar = (pregunta, respuesta) => {
+const preguntar = (pregunta, respuesta) => {
     const idPregunta = siguienteId.current++;
     setMensajes((anteriores) => [...anteriores, { id: idPregunta, autor: "usuario", texto: pregunta }]);
     setEscribiendo(true);
