@@ -4,6 +4,7 @@ import StepEntrada from "./checkout/StepEntrada";
 import StepDatos from "./checkout/StepDatos";
 import StepPago from "./checkout/StepPago";
 import StepListo from "./checkout/StepListo";
+import { Reveal } from "./Reveal";
 
 const TICKETS = [
   {
@@ -28,10 +29,9 @@ const TICKETS = [
 
 const PASOS = ["Entrada", "Datos", "Pago", "Listo"];
 
-export const CompraSegura = () => {
+export const CompraSegura = ({ ticketId, setTicketId }) => {
   const [paso, setPaso] = useState(1);
 
-  const [ticketId, setTicketId] = useState("early");
   const [cantidad, setCantidad] = useState(1);
   const [datos, setDatos] = useState({ nombre: "", email: "", dni: "" });
 
@@ -45,15 +45,15 @@ export const CompraSegura = () => {
       id="comprar"
       className="px-6 font-(family-name:--bs-body-font-family) mt-14"
     >
-      <div className="mx-auto max-w-328 rounded-[40px] bg-(image:--rc-gradient) px-6 py-14 text-(--rc-white) lg:px-14">
+      <Reveal className="mx-auto max-w-328 rounded-[40px] bg-(image:--rc-gradient) px-6 py-14 text-(--rc-white) lg:px-14">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-base font-extrabold uppercase tracking-[3px]">
               Compra segura
             </p>
-            <h1 className="mt-3 text-[clamp(40px,6vw,64px)] font-extrabold leading-[1.03] tracking-[-1px]">
+            <h2 className="mt-3 text-[clamp(40px,6vw,64px)] font-extrabold leading-[1.03] tracking-[-1px]">
               Finalizá tu compra
-            </h1>
+            </h2>
           </div>
 
           <ol className="flex flex-wrap gap-2">
@@ -74,7 +74,7 @@ export const CompraSegura = () => {
         </div>
 
         <div className="mt-10 grid items-start gap-6 lg:grid-cols-[692fr_484fr]">
-          <div className="rounded-[28px] bg-(--rc-white) p-8 text-(--rc-black)">
+          <div className="rounded-[28px] bg-(--rc-white) p-5 text-(--rc-black) sm:p-8">
             {paso === 1 && (
               <StepEntrada
                 tickets={TICKETS}
@@ -115,7 +115,7 @@ export const CompraSegura = () => {
             total={total}
           />
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 };

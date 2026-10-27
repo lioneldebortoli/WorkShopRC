@@ -11,7 +11,7 @@ export default function StepListo({ datos, total }) {
       </p>
       <a
         href="/"
-        className="mt-8 inline-flex min-h-\[52px\] items-center rounded-full bg-(--rc-black) px-8 text-lg font-extrabold text-(--rc-white)"
+        className="mt-8 inline-flex min-h-[52px] items-center rounded-full bg-(--rc-black) px-8 text-lg font-extrabold text-(--rc-white)"
       >
         Volver al inicio
       </a>
