@@ -57,6 +57,7 @@ const RESPUESTAS = [
 ];
 
 const BIENVENIDA = {
+  id: 0,
   autor: "bot",
   texto: "¡Hola! Soy el asistente del workshop. ¿Qué querés saber?",
 };
@@ -90,6 +91,10 @@ export const Chatbot = () => {
   const [texto, setTexto] = useState("");
   const finRef = useRef(null);
   const inputRef = useRef(null);
+  const siguienteId = useRef(1);
+  const temporizador = useRef(null);
+
+  useEffect(() => () => clearTimeout(temporizador.current), []);
 
   useEffect(() => {
     finRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -105,16 +110,18 @@ export const Chatbot = () => {
     return () => window.removeEventListener("keydown", cerrarConEscape);
   }, [abierto]);
 
-  const preguntar = (pregunta, respuesta) => {
-    setMensajes((anteriores) => [...anteriores, { autor: "usuario", texto: pregunta }]);
+    const preguntar = (pregunta, respuesta) => {
+    const idPregunta = siguienteId.current++;
+    setMensajes((anteriores) => [...anteriores, { id: idPregunta, autor: "usuario", texto: pregunta }]);
     setEscribiendo(true);
-    setTimeout(() => {
+    temporizador.current = setTimeout(() => {
+      const idRespuesta = siguienteId.current++;
       setEscribiendo(false);
       setMensajes((anteriores) => [
         ...anteriores,
         respuesta
-          ? { autor: "bot", texto: respuesta.texto, seccion: respuesta.seccion }
-          : { autor: "bot", texto: NO_ENTIENDO },
+          ? { id: idRespuesta, autor: "bot", texto: respuesta.texto, seccion: respuesta.seccion }
+          : { id: idRespuesta, autor: "bot", texto: NO_ENTIENDO },
       ]);
     }, 700);
   };
@@ -154,8 +161,8 @@ export const Chatbot = () => {
         </div>
 
         <ul aria-live="polite" className="flex-1 space-y-3 overflow-y-auto p-4">
-          {mensajes.map((mensaje, i) => (
-            <li key={i} className={`flex ${mensaje.autor === "usuario" ? "justify-end" : "justify-start"}`}>
+          {mensajes.map((mensaje) => (
+            <li key={mensaje.id} className={`flex ${mensaje.autor === "usuario" ? "justify-end" : "justify-start"}`}>
               <div
                 className={`max-w-[85%] rounded-[18px] px-4 py-2.5 text-[15px] leading-snug ${
                   mensaje.autor === "usuario"
