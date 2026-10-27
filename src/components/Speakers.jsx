@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
 import { Reveal } from "./Reveal";
+import { useEnPantalla } from "../hooks/useEnPantalla";
 import tomasEscudero from "../assets/speakers/speaker-01-tomas-escudero.jpg";
 import francoDiaz from "../assets/speakers/speaker-02-franco-diaz.jpeg";
 import gaston from "../assets/speakers/speaker-03-gaston.jpg";
@@ -99,22 +99,7 @@ const SPEAKERS = [
 const EASE = "ease-[cubic-bezier(0.22,0.8,0.3,1)]";
 
 const SpeakerCard = ({ speaker, indice }) => {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entrada]) => {
-        if (entrada.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-    observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
+      const [ref, visible] = useEnPantalla();
 
   return (
     <li
