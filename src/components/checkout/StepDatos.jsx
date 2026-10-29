@@ -45,7 +45,7 @@ export default function StepDatos({ datos, setDatos, onContinuar, onAtras }) {
       <Campo label="Email" name="email" type="email" autoComplete="email" value={datos.email} onChange={cambiar} error={errores.email} />
       <Campo label="DNI" name="dni" inputMode="numeric" value={datos.dni} onChange={cambiar} error={errores.dni} />
 
-      <div className="flex gap-3 pt-2">
+      <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row">
         <Boton type="button" variante="borde" onClick={onAtras}>
           Atrás
         </Boton>
@@ -56,3 +56,4 @@ export default function StepDatos({ datos, setDatos, onContinuar, onAtras }) {
     </form>
   );
 }
+

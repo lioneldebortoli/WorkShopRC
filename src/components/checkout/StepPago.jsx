@@ -105,7 +105,7 @@ export default function StepPago({ total, onPagar, onAtras }) {
         />
       </div>
 
-      <div className="flex gap-3 pt-2">
+      <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row">
         <Boton type="button" variante="borde" onClick={onAtras}>
           Atrás
         </Boton>
