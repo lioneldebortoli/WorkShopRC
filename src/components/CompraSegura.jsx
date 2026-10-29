@@ -7,6 +7,8 @@ import StepListo from "./checkout/StepListo";
 import { Reveal } from "./Reveal";
 import { CARGO_SERVICIO, ENTRADAS } from "../data/entradas";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useEvento } from "../hooks/useEvento";
+import { EVENTOS } from "../utils/eventos";
 import { baseDelCupon, buscarCupon, calcularDescuento, describirCupon } from "../utils/cupones";
 import { generarCodigos } from "../utils/codigos";
 
@@ -20,6 +22,13 @@ export const CompraSegura = ({ cantidades, setCantidades }) => {
   const [datos, setDatos] = useState(DATOS_VACIOS);
   const [codigoCupon, setCodigoCupon] = useState(null);
   const [compra, setCompra] = useLocalStorage("rc-ultima-compra", SIN_COMPRA);
+
+  useEvento(EVENTOS.cargarEntradas, () => setPaso(1));
+  useEvento(EVENTOS.verEntradas, () => {
+    if (!compra) return;
+    setPaso(4);
+    document.getElementById("comprar").scrollIntoView({ behavior: "smooth" });
+  });
 
   const lineas = ENTRADAS.filter((entrada) => cantidades[entrada.id] > 0).map((entrada) => ({
     id: entrada.id,

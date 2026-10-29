@@ -1,7 +1,9 @@
-import { useCallback, useId, useState } from "react";
+import { useCallback, useId, useRef, useState } from "react";
 import { Reveal } from "./Reveal";
 import { Toast } from "./Toast";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useEvento } from "../hooks/useEvento";
+import { EVENTOS } from "../utils/eventos";
 import { CHARLAS, nombreSpeaker, porHorario } from "../data/talks";
 
 const MAXIMO = 300;
@@ -22,6 +24,7 @@ const buscarCharla = (id) => CHARLAS.find((charla) => charla.id === id);
 export const PreguntasSpeakers = () => {
   const id = useId();
   const [datos, setDatos] = useState(VACIO);
+  const preguntaRef = useRef(null);
   const [errores, setErrores] = useState({});
   const [filtro, setFiltro] = useState("todas");
   const [orden, setOrden] = useState("nuevas");
@@ -29,6 +32,13 @@ export const PreguntasSpeakers = () => {
   const [preguntas, setPreguntas] = useLocalStorage("rc-preguntas", SIN_PREGUNTAS);
   const [misVotos, setMisVotos] = useLocalStorage("rc-mis-votos", SIN_VOTOS);
   const cerrarToast = useCallback(() => setToast(""), []);
+
+  useEvento(EVENTOS.preguntar, ({ charla }) => {
+    setDatos((actuales) => ({ ...actuales, charla }));
+    setErrores((actuales) => ({ ...actuales, charla: "" }));
+    document.getElementById("preguntas").scrollIntoView({ behavior: "smooth" });
+    setTimeout(() => preguntaRef.current?.focus({ preventScroll: true }), 600);
+  });
 
   const cambiar = (e) => {
     const { name, value } = e.target;
@@ -143,6 +153,7 @@ export const PreguntasSpeakers = () => {
                 Tu pregunta <span className="text-(--rc-red)" aria-hidden="true">*</span>
               </label>
               <textarea
+                ref={preguntaRef}
                 id={`${id}-texto`}
                 name="texto"
                 rows={4}
