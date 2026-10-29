@@ -3,6 +3,8 @@ import checkRojo from "../assets/iconos/check-rojo.svg";
 import { useState, useEffect } from "react";
 import { Reveal } from "./Reveal";
 import { useEnPantalla } from "../hooks/useEnPantalla";
+import { CUPOS_EARLY_BIRD, ENTRADAS, QUEDAN_EARLY_BIRD, VENDIDAS_EARLY_BIRD } from "../data/entradas";
+import { formatearPrecio } from "../utils/formato";
 
 const EARLY_BIRD_DEADLINE = new Date(2026, 9, 31, 23, 59, 59).getTime();
 
@@ -46,49 +48,8 @@ export default function Entradas({ onComprar }) {
     return () => clearInterval(interval);
   }, []);
 
-  const cards = [
-    {
-      id: "early",
-      title: "Early Bird",
-      price: "$25.000",
-      oldPrice: "$35.000",
-      badge: "Quedan 38",
-      subtitle: "Presencial · precio especial hasta el 31/10",
-      features: [
-        "Acceso a las 10 charlas",
-        "Kit de stickers Rolling Code",
-        "Certificado de asistencia",
-        "Coffee break y networking con los speakers",
-        "Grabación de todas las charlas",
-      ],
-    },
-    {
-      id: "general",
-      title: "General",
-      price: "$35.000",
-      badge: "Desde el 1/11",
-      subtitle: "Presencial · precio regular",
-      features: [
-        "Acceso a las 10 charlas",
-        "Certificado de asistencia",
-        "Coffee break y networking con los speakers",
-        "Grabación de todas las charlas",
-      ],
-    },
-    {
-      id: "virtual",
-      title: "Virtual",
-      price: "$15.000",
-      badge: "Desde donde estés",
-      subtitle: "Transmisión en vivo",
-      features: [
-        "Transmisión en vivo de las 10 charlas",
-        "Chat para hacer preguntas a los speakers",
-        "Certificado de asistencia",
-        "Grabación disponible por 30 días",
-      ],
-    },
-  ];
+  const porcentajeVendidas = Math.round((VENDIDAS_EARLY_BIRD / CUPOS_EARLY_BIRD) * 100);
+  const [early, general] = ENTRADAS;
 
   return (
     <section id="entradas" className="mx-auto mt-24 max-w-[1248px] px-6 text-(--rc-white)">
@@ -113,7 +74,7 @@ export default function Entradas({ onComprar }) {
             El precio especial termina el 31/10
           </p>
           <p className="mt-2 text-base text-(--rc-text-soft)">
-            Después la entrada pasa de $25.000 a $35.000.
+            Después la entrada pasa de {formatearPrecio(early.precio)} a {formatearPrecio(general.precio)}.
           </p>
         </div>
 
@@ -138,20 +99,22 @@ export default function Entradas({ onComprar }) {
 
         <div className="w-full lg:w-[360px]">
           <div className="flex justify-between text-sm">
-            <span className="font-semibold">Quedan 38 de 60 Early Bird</span>
-            <span className="text-(--rc-text-mute)">63% vendidas</span>
+            <span className="font-semibold">
+              Quedan {QUEDAN_EARLY_BIRD} de {CUPOS_EARLY_BIRD} Early Bird
+            </span>
+            <span className="text-(--rc-text-mute)">{porcentajeVendidas}% vendidas</span>
           </div>
           <div ref={barraRef} className="mt-2 h-2 overflow-hidden rounded-full bg-(--rc-surface-2)">
             <div
               className="h-full rounded-full bg-(--rc-red) transition-[width] delay-300 duration-1200 ease-out motion-reduce:transition-none"
-              style={{ width: barraVisible ? "63%" : "0%" }}
+              style={{ width: barraVisible ? `${porcentajeVendidas}%` : "0%" }}
             />
           </div>
         </div>
       </Reveal>
 
       <div className="mt-6 grid gap-6 md:grid-cols-2">
-        {cards.slice(0, 2).map((card, i) => (
+        {ENTRADAS.slice(0, 2).map((card, i) => (
           <Reveal key={card.id} retraso={i * 120} className="h-full">
             <Card
               card={card}
@@ -166,7 +129,7 @@ export default function Entradas({ onComprar }) {
 
       <Reveal className="mt-6">
         <Card
-          card={cards[2]}
+          card={ENTRADAS[2]}
           selected={selected === "virtual"}
           confirmed={confirmedTicket === "virtual"}
           onSelect={() => selectCard("virtual")}
@@ -200,35 +163,35 @@ function Card({ card, selected, confirmed, onSelect, onBuy }) {
       }`}
     >
       <div className="flex items-start justify-between gap-4">
-        <h3 className="text-2xl font-extrabold">{card.title}</h3>
-        {card.badge && (
+        <h3 className="text-2xl font-extrabold">{card.nombre}</h3>
+        {card.insignia && (
           <span
             className={`whitespace-nowrap rounded-full px-3.5 py-1 text-sm font-extrabold ${
               selected ? "bg-(--rc-black)" : "border border-(--rc-chip-border) text-(--rc-text-soft)"
             }`}
           >
-            {card.badge}
+            {card.insignia}
           </span>
         )}
       </div>
 
       <div className="mt-5 flex flex-wrap items-end gap-3">
         <span className="text-[clamp(44px,5vw,56px)] font-extrabold leading-none tracking-[-1px]">
-          {card.price}
+          {formatearPrecio(card.precio)}
         </span>
-        {card.oldPrice && (
+        {card.precioAnterior && (
           <span className="mb-1 text-xl text-(--rc-pink-soft) line-through opacity-80">
-            {card.oldPrice}
+            {formatearPrecio(card.precioAnterior)}
           </span>
         )}
       </div>
 
       <p className={`mt-4 text-base ${selected ? "text-(--rc-pink-soft)" : "text-(--rc-text-mute)"}`}>
-        {card.subtitle}
+        {card.subtitulo}
       </p>
 
       <ul className="mt-6 mb-8 grow space-y-3">
-        {card.features.map((feature) => (
+        {card.beneficios.map((feature) => (
           <li key={feature} className="flex items-start gap-3 text-base md:text-lg">
             <img src={selected ? checkBlanco : checkRojo} alt="" className="mt-1 h-5 w-5 shrink-0" />
             <span>{feature}</span>

@@ -16,10 +16,10 @@ import { Sponsors } from "./components/Sponsors.jsx"
 import { SumateSponsor } from "./components/SumateSponsor.jsx"
 
 function Landing() {
-  const [ticketId, setTicketId] = useState("early")
+  const [cantidades, setCantidades] = useState({ early: 0, general: 0, virtual: 0 })
 
   const irAComprar = (id) => {
-    setTicketId(id)
+    setCantidades((actuales) => (actuales[id] > 0 ? actuales : { ...actuales, [id]: 1 }))
     document.getElementById("comprar").scrollIntoView({ behavior: "smooth" })
   }
 
@@ -33,7 +33,7 @@ function Landing() {
         <Agenda />
         <Sponsors />
         <Entradas onComprar={irAComprar} />
-        <CompraSegura ticketId={ticketId} setTicketId={setTicketId} />
+        <CompraSegura cantidades={cantidades} setCantidades={setCantidades} />
         <SumateSponsor />
         <UbicacionEvento />
       </main>

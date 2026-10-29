@@ -5,46 +5,27 @@ import StepDatos from "./checkout/StepDatos";
 import StepPago from "./checkout/StepPago";
 import StepListo from "./checkout/StepListo";
 import { Reveal } from "./Reveal";
-
-const TICKETS = [
-  {
-    id: "early",
-    nombre: "Early Bird",
-    detalle: "Presencial · hasta el 31/10",
-    precio: 25000,
-  },
-  {
-    id: "general",
-    nombre: "General",
-    detalle: "Presencial · desde el 1/11",
-    precio: 35000,
-  },
-  {
-    id: "virtual",
-    nombre: "Virtual",
-    detalle: "Transmisión en vivo y grabación",
-    precio: 15000,
-  },
-];
+import { CARGO_SERVICIO, ENTRADAS } from "../data/entradas";
 
 const PASOS = ["Entrada", "Datos", "Pago", "Listo"];
 
-export const CompraSegura = ({ ticketId, setTicketId }) => {
+export const CompraSegura = ({ cantidades, setCantidades }) => {
   const [paso, setPaso] = useState(1);
+  const [datos, setDatos] = useState({ nombre: "", apellido: "", email: "", dni: "" });
 
-  const [cantidad, setCantidad] = useState(1);
-  const [datos, setDatos] = useState({ nombre: "", email: "", dni: "" });
-
-  const ticket = TICKETS.find((t) => t.id === ticketId);
-  const subtotal = ticket.precio * cantidad;
-  const cargo = Math.round(subtotal * 0.05);
+  const lineas = ENTRADAS.filter((entrada) => cantidades[entrada.id] > 0).map((entrada) => ({
+    id: entrada.id,
+    nombre: entrada.nombre,
+    cantidad: cantidades[entrada.id],
+    subtotal: entrada.precio * cantidades[entrada.id],
+  }));
+  const cantidadTotal = lineas.reduce((suma, linea) => suma + linea.cantidad, 0);
+  const subtotal = lineas.reduce((suma, linea) => suma + linea.subtotal, 0);
+  const cargo = Math.round(subtotal * CARGO_SERVICIO);
   const total = subtotal + cargo;
 
   return (
-    <section
-      id="comprar"
-      className="px-6 font-(family-name:--bs-body-font-family) mt-14"
-    >
+    <section id="comprar" className="mt-14 px-6">
       <Reveal className="mx-auto max-w-328 rounded-[40px] bg-(image:--rc-gradient) px-6 py-14 text-(--rc-white) lg:px-14">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
@@ -74,14 +55,13 @@ export const CompraSegura = ({ ticketId, setTicketId }) => {
         </div>
 
         <div className="mt-10 grid items-start gap-6 lg:grid-cols-[692fr_484fr]">
-          <div className="rounded-[28px] bg-(--rc-white) p-5 text-(--rc-black) sm:p-8">
+          <div className="min-w-0 rounded-[28px] bg-(--rc-white) p-5 text-(--rc-black) sm:p-8">
             {paso === 1 && (
               <StepEntrada
-                tickets={TICKETS}
-                ticketId={ticketId}
-                setTicketId={setTicketId}
-                cantidad={cantidad}
-                setCantidad={setCantidad}
+                entradas={ENTRADAS}
+                cantidades={cantidades}
+                setCantidades={setCantidades}
+                cantidadTotal={cantidadTotal}
                 onContinuar={() => setPaso(2)}
               />
             )}
@@ -100,20 +80,14 @@ export const CompraSegura = ({ ticketId, setTicketId }) => {
                 onAtras={() => setPaso(2)}
               />
             )}
-            {paso === 4 && <StepListo datos={datos} total={total} />}
+            {paso === 4 && <StepListo datos={datos} cantidad={cantidadTotal} total={total} />}
             <p className="mt-5 text-sm text-(--rc-gray-on-white)">
               Pasarela de pago de ejemplo: no se procesan pagos ni se guardan
               datos.
             </p>
           </div>
 
-          <Resumen
-            ticket={ticket}
-            cantidad={cantidad}
-            subtotal={subtotal}
-            cargo={cargo}
-            total={total}
-          />
+          <Resumen lineas={lineas} subtotal={subtotal} cargo={cargo} total={total} />
         </div>
       </Reveal>
     </section>
