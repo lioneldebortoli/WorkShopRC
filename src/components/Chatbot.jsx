@@ -5,6 +5,7 @@ import { CHARLAS } from "../data/talks";
 import { CARGO_SERVICIO, ENTRADAS, FECHA_EVENTO, FIN_EARLY_BIRD } from "../data/entradas";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { useFavoritos } from "../hooks/useFavoritos";
+import { useEmpujeFooter } from "../hooks/useEmpujeFooter";
 import { responder, responderPorId, textoRestante, tiempoRestante } from "../utils/chatbot";
 import { EVENTOS, emitir } from "../utils/eventos";
 
@@ -34,6 +35,7 @@ export const Chatbot = () => {
   const [, setSinRespuesta] = useLocalStorage("rc-chat-sin-respuesta", SIN_REGISTRO);
   const [compra] = useLocalStorage("rc-ultima-compra", SIN_COMPRA);
   const { favoritos, esFavorita, alternar } = useFavoritos();
+  const empuje = useEmpujeFooter();
   const finRef = useRef(null);
   const inputRef = useRef(null);
   const temporizador = useRef(null);
@@ -154,7 +156,8 @@ export const Chatbot = () => {
         role="dialog"
         aria-label="Asistente del workshop"
         inert={!abierto}
-        className={`fixed right-5 bottom-24 z-50 flex h-[min(560px,calc(100dvh-140px))] w-[min(calc(100vw-40px),390px)] origin-bottom-right flex-col overflow-hidden rounded-[28px] border border-(--rc-border) bg-(--rc-surface) text-(--rc-white) shadow-[0_22px_50px_rgba(0,0,0,0.6)] transition duration-300 ease-[cubic-bezier(0.22,0.8,0.3,1)] motion-reduce:transition-none md:right-8 md:bottom-28 ${
+        style={{ marginBottom: empuje, height: `min(560px, calc(100dvh - ${140 + empuje}px))` }}
+        className={`fixed right-5 bottom-24 z-50 flex w-[min(calc(100vw-40px),390px)] origin-bottom-right flex-col overflow-hidden rounded-[28px] border border-(--rc-border) bg-(--rc-surface) text-(--rc-white) shadow-[0_22px_50px_rgba(0,0,0,0.6)] transition duration-300 ease-[cubic-bezier(0.22,0.8,0.3,1)] motion-reduce:transition-none md:right-8 md:bottom-28 ${
           abierto ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"
         }`}
       >
@@ -279,6 +282,7 @@ export const Chatbot = () => {
       {aviso && !abierto && (
         <div
           role="status"
+          style={{ marginBottom: empuje }}
           className="fixed right-[84px] bottom-6 z-50 flex max-w-[min(calc(100vw-110px),260px)] items-start gap-2 rounded-[18px] rounded-br-md border border-(--rc-border) bg-(--rc-surface-2) py-3 pr-2 pl-4 text-(--rc-white) shadow-[0_12px_30px_rgba(0,0,0,0.5)] md:right-[104px] md:bottom-9"
         >
           <button type="button" onClick={abrir} className="cursor-pointer text-left text-sm font-semibold">
@@ -304,6 +308,7 @@ export const Chatbot = () => {
         aria-expanded={abierto}
         aria-controls="chatbot"
         onClick={() => (abierto ? setAbierto(false) : abrir())}
+        style={{ marginBottom: empuje }}
         className="fixed right-5 bottom-5 z-50 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-(--rc-red) text-(--rc-white) shadow-[0_12px_30px_rgba(224,32,42,0.45)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#ff2d3a] motion-reduce:transition-none md:right-8 md:bottom-8"
       >
         {abierto ? (
