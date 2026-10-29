@@ -6,6 +6,12 @@ import { CHARLAS, nombreSpeaker } from "../data/talks";
 
 const EASE = "ease-[cubic-bezier(0.22,0.8,0.3,1)]";
 
+const estiloRecorte = ({ x, y, tamano }) => ({
+  width: `${10000 / tamano}%`,
+  left: `${(-x * 100) / tamano}%`,
+  top: `${(-y * 100) / tamano}%`,
+});
+
 const SpeakerCard = ({ charla, indice, favorita, onFavorito }) => {
   const [ref, visible] = useEnPantalla();
   const { speaker } = charla;
@@ -22,12 +28,13 @@ const SpeakerCard = ({ charla, indice, favorita, onFavorito }) => {
         className={`group h-full rounded-[32px] border border-(--rc-border) bg-(--rc-surface) p-4 transition duration-450 ${EASE} md:hover:-translate-y-2.5 hover:border-(--rc-red) hover:bg-[#161618] hover:shadow-[0_22px_50px_rgba(224,32,42,0.28)]`}
       >
         <div className="relative aspect-square overflow-hidden rounded-3xl">
-          <div className={`h-full w-full transition-transform duration-600 ${EASE} group-hover:scale-108`}>
+          <div className={`relative h-full w-full transition-transform duration-600 ${EASE} group-hover:scale-108`}>
             <img
               src={speaker.foto}
               alt={`Foto de ${nombreSpeaker(charla)}`}
               loading="lazy"
-              className="h-full w-full object-cover object-top"
+              className="absolute max-w-none"
+              style={estiloRecorte(speaker.recorte)}
             />
           </div>
           <BotonFavorito activa={favorita} titulo={charla.titulo} onClick={onFavorito} className="absolute top-3 right-3" />
