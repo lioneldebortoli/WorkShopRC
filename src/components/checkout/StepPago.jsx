@@ -1,6 +1,9 @@
 import { useState } from "react";
 import Boton from "./Boton";
 import Campo from "./Campo";
+import { formatearPrecio } from "../../utils/formato";
+import { detectarMarca, estaVencida, formatearNumero, formatearVencimiento, pasaLuhn } from "../../utils/tarjeta";
+import { esSoloLetras } from "../../utils/validaciones";
 
 const LOGOS = {
   visa: (
@@ -12,44 +15,6 @@ const LOGOS = {
       <span className="-ml-1.5 h-4 w-4 rounded-full bg-[#f79e1b]/90" />
     </span>
   ),
-};
-
-const formatearNumero = (valor) =>
-  valor.replace(/\D/g, "").slice(0, 16).replace(/(\d{4})(?=\d)/g, "$1 ");
-
-const formatearVencimiento = (valor) => {
-  const numeros = valor.replace(/\D/g, "").slice(0, 4);
-  return numeros.length > 2 ? `${numeros.slice(0, 2)}/${numeros.slice(2)}` : numeros;
-};
-
-const detectarMarca = (numero) => {
-  const n = numero.replace(/\s/g, "");
-  if (/^4/.test(n)) return "visa";
-  if (/^5[1-5]/.test(n)) return "mastercard";
-  const cuatro = Number(n.slice(0, 4));
-  if (n.length >= 4 && cuatro >= 2221 && cuatro <= 2720) return "mastercard";
-  return null;
-};
-
-const pasaLuhn = (numero) => {
-  let suma = 0;
-  [...numero].reverse().forEach((caracter, i) => {
-    let digito = Number(caracter);
-    if (i % 2 === 1) {
-      digito *= 2;
-      if (digito > 9) digito -= 9;
-    }
-    suma += digito;
-  });
-  return suma % 10 === 0;
-};
-
-const estaVencida = (vence) => {
-  const [mes, anio] = vence.split("/").map(Number);
-  const hoy = new Date();
-  const anioActual = hoy.getFullYear() % 100;
-  const mesActual = hoy.getMonth() + 1;
-  return anio < anioActual || (anio === anioActual && mes < mesActual);
 };
 
 export default function StepPago({ total, onPagar, onAtras }) {
@@ -75,7 +40,7 @@ export default function StepPago({ total, onPagar, onAtras }) {
     const numero = tarjeta.numero.replace(/\s/g, "");
 
     if (!tarjeta.titular.trim()) nuevos.titular = "Completá el nombre que figura en la tarjeta.";
-    else if (!/^[a-záéíóúüñ' ]+$/i.test(tarjeta.titular.trim())) nuevos.titular = "El nombre solo puede tener letras.";
+    else if (!esSoloLetras(tarjeta.titular)) nuevos.titular = "El nombre solo puede tener letras.";
 
     if (!numero) nuevos.numero = "Completá el número de tarjeta.";
     else if (numero.length !== 16) nuevos.numero = "La tarjeta tiene 16 números.";
@@ -145,7 +110,7 @@ export default function StepPago({ total, onPagar, onAtras }) {
           Atrás
         </Boton>
         <Boton type="submit" className="flex-1">
-          Pagar ${total.toLocaleString("de-DE")}
+          Pagar {formatearPrecio(total)}
         </Boton>
       </div>
     </form>

@@ -1,5 +1,7 @@
 import { useId, useRef, useState } from "react";
 import { Reveal } from "./Reveal";
+import { formatearPeso } from "../utils/formato";
+import { esEmail, esEmailPersonal, esSoloLetras } from "../utils/validaciones";
 
 const TIPOS = [
   { valor: "main", texto: "Main Partner · Tier Diamante" },
@@ -10,7 +12,6 @@ const TIPOS = [
 const FORMATOS = ["image/png", "image/svg+xml", "image/jpeg", "image/webp"];
 const PESO_MAXIMO = 5 * 1024 * 1024;
 const MENSAJE_MAXIMO = 500;
-const EMAILS_PERSONALES = ["gmail.com", "hotmail.com", "outlook.com", "yahoo.com", "live.com", "icloud.com"];
 
 const VACIO = { nombre: "", apellido: "", empresa: "", email: "", tipo: "", mensaje: "" };
 
@@ -34,9 +35,6 @@ const MensajeError = ({ id, children }) =>
       {children}
     </p>
   ) : null;
-
-const formatearPeso = (bytes) =>
-  bytes < 1024 * 1024 ? `${Math.round(bytes / 1024)} KB` : `${(bytes / 1024 / 1024).toFixed(1)} MB`;
 
 export const SumateSponsor = () => {
   const id = useId();
@@ -79,21 +77,20 @@ export const SumateSponsor = () => {
   const enviar = (e) => {
     e.preventDefault();
     const nuevos = {};
-    const soloLetras = /^[a-záéíóúüñ' ]+$/i;
     const email = datos.email.trim().toLowerCase();
 
     if (!datos.nombre.trim()) nuevos.nombre = "Completá tu nombre.";
-    else if (!soloLetras.test(datos.nombre.trim())) nuevos.nombre = "El nombre solo puede tener letras.";
+    else if (!esSoloLetras(datos.nombre)) nuevos.nombre = "El nombre solo puede tener letras.";
 
     if (!datos.apellido.trim()) nuevos.apellido = "Completá tu apellido.";
-    else if (!soloLetras.test(datos.apellido.trim())) nuevos.apellido = "El apellido solo puede tener letras.";
+    else if (!esSoloLetras(datos.apellido)) nuevos.apellido = "El apellido solo puede tener letras.";
 
     if (!datos.empresa.trim()) nuevos.empresa = "Completá el nombre de la empresa.";
     else if (datos.empresa.trim().length < 2) nuevos.empresa = "El nombre de la empresa es muy corto.";
 
     if (!email) nuevos.email = "Completá tu email corporativo.";
-    else if (!/^\S+@\S+\.\S+$/.test(email)) nuevos.email = "El email no es válido. Ejemplo: martin@acme.com";
-    else if (EMAILS_PERSONALES.includes(email.split("@")[1])) nuevos.email = "Usá el email de tu empresa, no uno personal.";
+    else if (!esEmail(email)) nuevos.email = "El email no es válido. Ejemplo: martin@acme.com";
+    else if (esEmailPersonal(email)) nuevos.email = "Usá el email de tu empresa, no uno personal.";
 
     if (!datos.tipo) nuevos.tipo = "Elegí un nivel de sponsoreo.";
 

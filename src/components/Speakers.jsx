@@ -29,7 +29,7 @@ const SPEAKERS = [
       "Un recorrido para pasar de mirar tutoriales a terminar una app simple con HTML, JavaScript y React.",
   },
   {
-    nombre: "Gaston",
+    nombre: "Gaston Roger",
     foto: gaston,
     hora: "19.00",
     charla: "Armá tu portfolio con IA",
@@ -37,7 +37,7 @@ const SPEAKERS = [
       "Cómo usar asistentes de IA para construir y publicar un portfolio que muestre lo que sabés hacer.",
   },
   {
-    nombre: "Mauro",
+    nombre: "Mauro Coniglio",
     foto: mauro,
     hora: "19.20",
     charla: "Git y GitHub sin miedo",
