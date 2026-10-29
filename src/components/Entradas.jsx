@@ -3,10 +3,10 @@ import checkRojo from "../assets/iconos/check-rojo.svg";
 import { useState, useEffect } from "react";
 import { Reveal } from "./Reveal";
 import { useEnPantalla } from "../hooks/useEnPantalla";
-import { CUPOS_EARLY_BIRD, ENTRADAS, QUEDAN_EARLY_BIRD, VENDIDAS_EARLY_BIRD } from "../data/entradas";
+import { CUPOS_EARLY_BIRD, ENTRADAS, FIN_EARLY_BIRD, QUEDAN_EARLY_BIRD, VENDIDAS_EARLY_BIRD } from "../data/entradas";
 import { formatearPrecio } from "../utils/formato";
 
-const EARLY_BIRD_DEADLINE = new Date(2026, 9, 31, 23, 59, 59).getTime();
+const EARLY_BIRD_DEADLINE = FIN_EARLY_BIRD.getTime();
 
 function getTimeLeft() {
   const difference = Math.max(EARLY_BIRD_DEADLINE - Date.now(), 0);

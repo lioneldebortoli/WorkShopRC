@@ -14,8 +14,6 @@ import { BotonArriba } from "./components/BotonArriba.jsx"
 import { Chatbot } from "./components/Chatbot.jsx"
 import { Sponsors } from "./components/Sponsors.jsx"
 import { SumateSponsor } from "./components/SumateSponsor.jsx"
-import { Testimonios } from "./components/Testimonios.jsx"
-import { PreguntasSpeakers } from "./components/PreguntasSpeakers.jsx"
 
 function Landing() {
   const [cantidades, setCantidades] = useState({ early: 0, general: 0, virtual: 0 })
@@ -33,9 +31,7 @@ function Landing() {
         <Estadisticas />
         <Speakers />
         <Agenda />
-        <PreguntasSpeakers />
         <Sponsors />
-        <Testimonios />
         <Entradas onComprar={irAComprar} />
         <CompraSegura cantidades={cantidades} setCantidades={setCantidades} />
         <SumateSponsor />

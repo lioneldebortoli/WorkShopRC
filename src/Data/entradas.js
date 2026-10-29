@@ -2,6 +2,8 @@ export const CUPOS_EARLY_BIRD = 60;
 export const VENDIDAS_EARLY_BIRD = 22;
 export const QUEDAN_EARLY_BIRD = CUPOS_EARLY_BIRD - VENDIDAS_EARLY_BIRD;
 export const CARGO_SERVICIO = 0.05;
+export const FECHA_EVENTO = new Date(2026, 10, 19, 18, 0, 0);
+export const FIN_EARLY_BIRD = new Date(2026, 9, 31, 23, 59, 59);
 
 export const ENTRADAS = [
   {
