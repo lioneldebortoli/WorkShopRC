@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
 import { Reveal } from "./Reveal";
+import { useEnPantalla } from "../hooks/useEnPantalla";
 import tomasEscudero from "../assets/speakers/speaker-01-tomas-escudero.jpg";
 import francoDiaz from "../assets/speakers/speaker-02-franco-diaz.jpeg";
 import gaston from "../assets/speakers/speaker-03-gaston.jpg";
@@ -13,7 +13,8 @@ import andresPerlo from "../assets/speakers/speaker-10-andres-perlo.jpeg";
 
 const SPEAKERS = [
   {
-    nombre: "Tomas Escudero",
+    nombre: "Tomas",
+    apellido: "Escudero",
     foto: tomasEscudero,
     hora: "21.00",
     charla: "Diseño para developers",
@@ -21,7 +22,8 @@ const SPEAKERS = [
       "Qué mira un equipo de diseño antes de que escribas código y cómo leer un mockup para construirlo igual.",
   },
   {
-    nombre: "Franco Diaz",
+    nombre: "Franco",
+    apellido: "Diaz",
     foto: francoDiaz,
     hora: "18.40",
     charla: "De cero a tu primer proyecto",
@@ -29,7 +31,8 @@ const SPEAKERS = [
       "Un recorrido para pasar de mirar tutoriales a terminar una app simple con HTML, JavaScript y React.",
   },
   {
-    nombre: "Gaston Roger",
+    nombre: "Gaston",
+    apellido: "Roger",
     foto: gaston,
     hora: "19.00",
     charla: "Armá tu portfolio con IA",
@@ -37,7 +40,8 @@ const SPEAKERS = [
       "Cómo usar asistentes de IA para construir y publicar un portfolio que muestre lo que sabés hacer.",
   },
   {
-    nombre: "Mauro Coniglio",
+    nombre: "Mauro",
+    apellido: "Coniglio",
     foto: mauro,
     hora: "19.20",
     charla: "Git y GitHub sin miedo",
@@ -45,7 +49,8 @@ const SPEAKERS = [
       "Los comandos que vas a usar todos los días y cómo trabajar en equipo sin pisar el código de otros.",
   },
   {
-    nombre: "Jose Diaz",
+    nombre: "Jose",
+    apellido: "Diaz",
     foto: joseDiaz,
     hora: "19.40",
     charla: "Tu primer backend con Node",
@@ -53,7 +58,8 @@ const SPEAKERS = [
       "Cómo se arma una API, qué hace una base de datos y por dónde empezar para conectar todo.",
   },
   {
-    nombre: "Tomas Gomez",
+    nombre: "Tomas",
+    apellido: "Gomez",
     foto: tomasGomez,
     hora: "20.00",
     charla: "Preparate para tu primera entrevista",
@@ -62,7 +68,8 @@ const SPEAKERS = [
       "Qué preguntan en una entrevista técnica, cómo practicar y cómo contar tus proyectos con claridad.",
   },
   {
-    nombre: "Pablo Basso",
+    nombre: "Pablo",
+    apellido: "Basso",
     foto: pabloBasso,
     hora: "20.20",
     charla: "Mi primer trabajo en IT",
@@ -71,7 +78,8 @@ const SPEAKERS = [
       "Una charla en primera persona sobre cómo se consigue el primer puesto y qué se aprende en los primeros meses.",
   },
   {
-    nombre: "Julian Martin",
+    nombre: "Julian",
+    apellido: "Martin",
     foto: julianMartin,
     hora: "20.40",
     charla: "Testing: cómo no romper todo",
@@ -79,7 +87,8 @@ const SPEAKERS = [
       "Qué es testear, por qué importa y cómo escribir tus primeras pruebas sin complicarte.",
   },
   {
-    nombre: "Daniela Cardozo",
+    nombre: "Daniela",
+    apellido: "Cardozo",
     foto: danielaCardozo,
     hora: "18.20",
     charla: "Tu primer día como developer",
@@ -87,7 +96,8 @@ const SPEAKERS = [
       "Qué esperar de tu primera semana en un equipo, qué herramientas usar y cómo pedir ayuda sin miedo.",
   },
   {
-    nombre: "Andres Perlo",
+    nombre: "Andres",
+    apellido: "Perlo",
     foto: andresPerlo,
     hora: "21.20",
     charla: "Tu primera base de datos",
@@ -99,22 +109,7 @@ const SPEAKERS = [
 const EASE = "ease-[cubic-bezier(0.22,0.8,0.3,1)]";
 
 const SpeakerCard = ({ speaker, indice }) => {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entrada]) => {
-        if (entrada.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-    observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
+  const [ref, visible] = useEnPantalla();
 
   return (
     <li
@@ -131,7 +126,7 @@ const SpeakerCard = ({ speaker, indice }) => {
           <div className={`h-full w-full transition-transform duration-600 ${EASE} group-hover:scale-108`}>
             <img
               src={speaker.foto}
-              alt={`Foto de ${speaker.nombre}`}
+              alt={`Foto de ${speaker.nombre} ${speaker.apellido}`}
               loading="lazy"
               className={`h-full w-full object-cover object-top ${speaker.encuadre ?? ""}`}
             />
@@ -145,6 +140,7 @@ const SpeakerCard = ({ speaker, indice }) => {
         </div>
         <h3 className="mt-5 text-[clamp(20px,1.9vw,26px)] font-extrabold leading-tight">
           {speaker.nombre}
+          <span className="block">{speaker.apellido}</span>
         </h3>
         <p className="mt-3 rounded-[14px] bg-(--rc-surface-2) px-4 py-2.5 font-extrabold leading-tight transition-colors duration-300 group-hover:bg-(--rc-red)">
           {speaker.charla}
@@ -171,7 +167,7 @@ export const Speakers = () => {
 
       <ul className="-mx-6 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-3 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-5">
         {SPEAKERS.map((speaker, i) => (
-          <SpeakerCard key={speaker.nombre} speaker={speaker} indice={i} />
+          <SpeakerCard key={`${speaker.nombre}-${speaker.apellido}`} speaker={speaker} indice={i} />
         ))}
       </ul>
     </section>
