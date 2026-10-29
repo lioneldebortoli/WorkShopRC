@@ -8,7 +8,7 @@ export default function StepEntrada({ entradas, cantidades, setCantidades, canti
   const [error, setError] = useState("");
 
   const cambiar = (id, valor) => {
-    setCantidades({ ...cantidades, [id]: valor });
+    setCantidades((actuales) => ({ ...actuales, [id]: valor }));
     setError("");
   };
 
@@ -51,7 +51,7 @@ export default function StepEntrada({ entradas, cantidades, setCantidades, canti
                   cantidad={cantidad}
                   stock={entrada.stock}
                   onCambiar={(valor) => cambiar(entrada.id, valor)}
-                  onAviso={(texto) => setAvisos({ ...avisos, [entrada.id]: texto })}
+                  onAviso={(texto) => setAvisos((actuales) => ({ ...actuales, [entrada.id]: texto }))}
                 />
               </div>
               {avisos[entrada.id] && (
