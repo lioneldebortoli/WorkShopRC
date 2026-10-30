@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import logo from "../assets/logo/logo-rolling-blanco.png";
+import logoNegro from "../assets/logo/logo-rolling-negro.png";
+import { BotonTema } from "./BotonTema";
+import { useTema } from "../hooks/useTema";
 
 const LINKS = [
   { id: "speakers", texto: "Speakers" },
@@ -12,12 +15,13 @@ const LINKS = [
 const EASE = "ease-[cubic-bezier(0.22,0.8,0.3,1)]";
 
 const BOTON_ROJO =
-  "inline-flex items-center justify-center rounded-full bg-(--rc-red) font-extrabold transition duration-300 hover:-translate-y-0.5 hover:bg-[#ff2d3a] hover:shadow-[0_12px_30px_rgba(224,32,42,0.45)] active:scale-[0.98]";
+  "inline-flex items-center justify-center rounded-full bg-(--rc-red) font-extrabold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-(--rc-red-hover) hover:shadow-[0_12px_30px_rgba(224,32,42,0.45)] active:scale-[0.98]";
 
 export default function Navbar() {
   const [conScroll, setConScroll] = useState(() => window.scrollY > 8);
   const [menuAbierto, setMenuAbierto] = useState(false);
   const [activa, setActiva] = useState(null);
+  const { tema, alternarTema } = useTema();
 
   useEffect(() => {
     const actualizar = () => setConScroll(window.scrollY > 8);
@@ -65,9 +69,9 @@ export default function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b bg-[rgba(11,11,12,0.96)] transition-[box-shadow,border-color] duration-300 lg:bg-[rgba(11,11,12,0.82)] lg:backdrop-blur-md ${
+      className={`sticky top-0 z-50 border-b bg-(--rc-nav) transition-[box-shadow,border-color,background-color] duration-300 lg:bg-(--rc-nav-blur) lg:backdrop-blur-md ${
         conScroll
-          ? "border-(--rc-border) shadow-[0_10px_30px_rgba(0,0,0,0.45)]"
+          ? "border-(--rc-border) shadow-[0_10px_30px_var(--rc-sombra)]"
           : "border-transparent"
       }`}
     >
@@ -76,10 +80,11 @@ export default function Navbar() {
         className="mx-auto flex max-w-[1248px] items-center justify-between gap-4 px-6 py-3"
       >
         <a href="/#inicio" onClick={(e) => irA(e, "inicio")}>
-          <img src={logo} alt="Rolling Code School" className="h-11 w-auto lg:h-13" />
+          <img src={logo} alt="Rolling Code School" className="h-11 w-auto claro:hidden lg:h-13" />
+          <img src={logoNegro} alt="Rolling Code School" className="hidden h-11 w-auto claro:block lg:h-13" />
         </a>
 
-        <ul className="hidden items-center gap-7 lg:flex">
+        <ul className="hidden items-center gap-6 lg:flex xl:gap-7">
           {LINKS.map(({ id, texto }) => (
             <li key={id}>
               <a
@@ -96,6 +101,9 @@ export default function Navbar() {
               </a>
             </li>
           ))}
+          <li>
+            <BotonTema tema={tema} onCambiar={alternarTema} />
+          </li>
           <li>
             <a
               href="/#entradas"
@@ -148,7 +156,7 @@ export default function Navbar() {
       <div
         id="menu-movil"
         inert={!menuAbierto}
-        className={`fixed inset-y-0 right-0 z-50 w-[min(84vw,340px)] border-l border-(--rc-border) bg-[rgba(11,11,12,0.72)] backdrop-blur-xl transition-transform duration-450 ${EASE} lg:hidden ${
+        className={`fixed inset-y-0 right-0 z-50 w-[min(84vw,340px)] border-l border-(--rc-border) bg-(--rc-panel) backdrop-blur-xl transition-transform duration-450 ${EASE} lg:hidden ${
           menuAbierto ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -183,6 +191,12 @@ export default function Navbar() {
               </li>
             )
           )}
+          <li
+            style={{ transitionDelay: menuAbierto ? `${(LINKS.length + 1) * 60}ms` : "0ms" }}
+            className={`pt-3 transition duration-400 ${EASE} ${menuAbierto ? "translate-x-0 opacity-100" : "translate-x-5 opacity-0"}`}
+          >
+            <BotonTema tema={tema} onCambiar={alternarTema} conTexto />
+          </li>
         </ul>
       </div>
     </header>
