@@ -12,7 +12,7 @@ const DATOS = [
 export const HeroPublicidad = () => {
   return (
     <section id="inicio" className="mt-12 overflow-x-clip px-6">
-      <div className="miContenedor mx-auto max-w-[1312px] rounded-[40px] px-6 py-12 text-(--rc-white) lg:px-14 lg:py-16">
+      <div className="miContenedor siempre-oscuro mx-auto max-w-[1312px] rounded-[40px] px-6 py-12 text-(--rc-white) lg:px-14 lg:py-16">
         <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-12 lg:grid-cols-[7fr_5fr]">
           <Reveal desde="izquierda">
             <p className="text-lg uppercase md:text-[26px]">

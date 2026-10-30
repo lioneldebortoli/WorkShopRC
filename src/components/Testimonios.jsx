@@ -30,7 +30,7 @@ function usePantalla() {
 }
 
 const FLECHA =
-  "flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center rounded-full border border-(--rc-chip-border) bg-(--rc-surface-2) text-xl transition hover:border-(--rc-red) hover:bg-(--rc-red)";
+  "flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center rounded-full border border-(--rc-chip-border) bg-(--rc-surface-2) text-xl transition hover:border-(--rc-red) hover:bg-(--rc-red) hover:text-white";
 
 export const Testimonios = () => {
   const { porVista, reducido } = usePantalla();
@@ -123,7 +123,7 @@ export const Testimonios = () => {
                   <figcaption className="mt-6 flex items-center gap-3 border-t border-(--rc-border) pt-5">
                     <span
                       aria-hidden="true"
-                      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-(image:--rc-gradient) font-extrabold"
+                      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-(image:--rc-gradient) font-extrabold text-white"
                     >
                       {iniciales(testimonio.nombre)}
                     </span>

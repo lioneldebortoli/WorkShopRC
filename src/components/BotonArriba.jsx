@@ -18,7 +18,7 @@ export const BotonArriba = () => {
       inert={!visible}
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       style={{ marginBottom: empuje }}
-      className={`fixed right-5 bottom-24 z-40 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-(--rc-chip-border) bg-(--rc-surface-2) text-(--rc-white) shadow-[0_10px_30px_rgba(0,0,0,0.45)] transition duration-300 hover:-translate-y-0.5 hover:border-(--rc-red) hover:bg-(--rc-red) motion-reduce:transition-none md:right-8 md:bottom-28 ${
+      className={`fixed right-5 bottom-24 z-40 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-(--rc-chip-border) bg-(--rc-surface-2) text-(--rc-white) shadow-[0_10px_30px_var(--rc-sombra)] transition duration-300 hover:-translate-y-0.5 hover:border-(--rc-red) hover:bg-(--rc-red) hover:text-white motion-reduce:transition-none md:right-8 md:bottom-28 ${
         visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
       }`}
     >

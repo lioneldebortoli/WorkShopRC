@@ -23,7 +23,7 @@ const SIN_REGISTRO = [];
 const SIN_COMPRA = null;
 
 const BOTON_ACCION =
-  "cursor-pointer rounded-full border border-(--rc-chip-border) bg-(--rc-black) px-3 py-1.5 text-left text-sm font-extrabold text-(--rc-white) transition hover:border-(--rc-red) hover:bg-(--rc-red)";
+  "cursor-pointer rounded-full border border-(--rc-chip-border) bg-(--rc-black) px-3 py-1.5 text-left text-sm font-extrabold text-(--rc-white) transition hover:border-(--rc-red) hover:bg-(--rc-red) hover:text-white";
 
 export const Chatbot = () => {
   const [abierto, setAbierto] = useState(false);
@@ -157,11 +157,11 @@ export const Chatbot = () => {
         aria-label="Asistente del workshop"
         inert={!abierto}
         style={{ marginBottom: empuje, height: `min(560px, calc(100dvh - ${140 + empuje}px))` }}
-        className={`fixed right-5 bottom-24 z-50 flex w-[min(calc(100vw-40px),390px)] origin-bottom-right flex-col overflow-hidden rounded-[28px] border border-(--rc-border) bg-(--rc-surface) text-(--rc-white) shadow-[0_22px_50px_rgba(0,0,0,0.6)] transition duration-300 ease-[cubic-bezier(0.22,0.8,0.3,1)] motion-reduce:transition-none md:right-8 md:bottom-28 ${
+        className={`fixed right-5 bottom-24 z-50 flex w-[min(calc(100vw-40px),390px)] origin-bottom-right flex-col overflow-hidden rounded-[28px] border border-(--rc-border) bg-(--rc-surface) text-(--rc-white) shadow-[0_22px_50px_var(--rc-sombra)] transition duration-300 ease-[cubic-bezier(0.22,0.8,0.3,1)] motion-reduce:transition-none md:right-8 md:bottom-28 ${
           abierto ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"
         }`}
       >
-        <div className="flex items-center gap-3 bg-(image:--rc-gradient) px-5 py-4">
+        <div className="siempre-oscuro flex items-center gap-3 bg-(image:--rc-gradient) px-5 py-4">
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-(--rc-black)">
             <img src={favicon} alt="" className="h-7 w-7" />
           </span>
@@ -191,7 +191,7 @@ export const Chatbot = () => {
               <div
                 className={`max-w-[88%] rounded-[18px] px-4 py-2.5 text-[15px] leading-snug ${
                   mensaje.autor === "usuario"
-                    ? "rounded-br-md bg-(--rc-red)"
+                    ? "rounded-br-md bg-(--rc-red) text-white"
                     : "rounded-bl-md bg-(--rc-surface-2) text-(--rc-text-soft)"
                 }`}
               >
@@ -204,7 +204,7 @@ export const Chatbot = () => {
                           <svg
                             viewBox="0 0 24 24"
                             aria-hidden="true"
-                            className="mr-1.5 inline h-4 w-4 align-[-3px] text-[#f5b301]"
+                            className="mr-1.5 inline h-4 w-4 align-[-3px] text-(--rc-estrella)"
                             fill={esFavorita(accion.charla) ? "currentColor" : "none"}
                             stroke="currentColor"
                             strokeWidth="2"
@@ -245,7 +245,7 @@ export const Chatbot = () => {
                 type="button"
                 disabled={escribiendo}
                 onClick={() => preguntarPorId(respuesta.id)}
-                className="shrink-0 cursor-pointer rounded-full border border-(--rc-chip-border) px-3.5 py-1.5 text-sm font-semibold whitespace-nowrap transition hover:border-(--rc-red) hover:bg-(--rc-red) disabled:cursor-not-allowed disabled:opacity-50"
+                className="shrink-0 cursor-pointer rounded-full border border-(--rc-chip-border) px-3.5 py-1.5 text-sm font-semibold whitespace-nowrap transition hover:border-(--rc-red) hover:bg-(--rc-red) hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {respuesta.pregunta}
               </button>
@@ -269,7 +269,7 @@ export const Chatbot = () => {
               type="submit"
               aria-label="Enviar pregunta"
               disabled={!texto.trim() || escribiendo}
-              className="flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-full bg-(--rc-red) transition hover:bg-[#ff2d3a] disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-full bg-(--rc-red) text-white transition hover:bg-(--rc-red-hover) disabled:cursor-not-allowed disabled:opacity-50"
             >
               <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5">
                 <path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -283,7 +283,7 @@ export const Chatbot = () => {
         <div
           role="status"
           style={{ marginBottom: empuje }}
-          className="fixed right-[84px] bottom-6 z-50 flex max-w-[min(calc(100vw-110px),260px)] items-start gap-2 rounded-[18px] rounded-br-md border border-(--rc-border) bg-(--rc-surface-2) py-3 pr-2 pl-4 text-(--rc-white) shadow-[0_12px_30px_rgba(0,0,0,0.5)] md:right-[104px] md:bottom-9"
+          className="fixed right-[84px] bottom-6 z-50 flex max-w-[min(calc(100vw-110px),260px)] items-start gap-2 rounded-[18px] rounded-br-md border border-(--rc-border) bg-(--rc-surface-2) py-3 pr-2 pl-4 text-(--rc-white) shadow-[0_12px_30px_var(--rc-sombra)] md:right-[104px] md:bottom-9"
         >
           <button type="button" onClick={abrir} className="cursor-pointer text-left text-sm font-semibold">
             ¿Tenés dudas sobre el workshop? Preguntame 👋
@@ -309,7 +309,7 @@ export const Chatbot = () => {
         aria-controls="chatbot"
         onClick={() => (abierto ? setAbierto(false) : abrir())}
         style={{ marginBottom: empuje }}
-        className="fixed right-5 bottom-5 z-50 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-(--rc-red) text-(--rc-white) shadow-[0_12px_30px_rgba(224,32,42,0.45)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#ff2d3a] motion-reduce:transition-none md:right-8 md:bottom-8"
+        className="fixed right-5 bottom-5 z-50 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-(--rc-red) text-white shadow-[0_12px_30px_rgba(224,32,42,0.45)] transition duration-300 hover:-translate-y-0.5 hover:bg-(--rc-red-hover) motion-reduce:transition-none md:right-8 md:bottom-8"
       >
         {abierto ? (
           <svg viewBox="0 0 24 24" aria-hidden="true" className="h-6 w-6">

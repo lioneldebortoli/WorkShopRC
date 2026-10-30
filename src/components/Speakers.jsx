@@ -25,7 +25,7 @@ const SpeakerCard = ({ charla, indice, favorita, onFavorito }) => {
       }`}
     >
       <article
-        className={`group h-full rounded-[32px] border border-(--rc-border) bg-(--rc-surface) p-4 transition duration-450 ${EASE} md:hover:-translate-y-2.5 hover:border-(--rc-red) hover:bg-[#161618] hover:shadow-[0_22px_50px_rgba(224,32,42,0.28)]`}
+        className={`group h-full rounded-[32px] border border-(--rc-border) bg-(--rc-surface) p-4 transition duration-450 ${EASE} md:hover:-translate-y-2.5 hover:border-(--rc-red) hover:bg-(--rc-surface-hover) hover:shadow-[0_22px_50px_rgba(224,32,42,0.28)]`}
       >
         <div className="relative aspect-square overflow-hidden rounded-3xl">
           <div className={`relative h-full w-full transition-transform duration-600 ${EASE} group-hover:scale-108`}>
@@ -40,7 +40,7 @@ const SpeakerCard = ({ charla, indice, favorita, onFavorito }) => {
           <BotonFavorito activa={favorita} titulo={charla.titulo} onClick={onFavorito} className="absolute top-3 right-3" />
           <span
             aria-hidden="true"
-            className={`absolute bottom-3 left-1/2 -translate-x-1/2 translate-y-2 whitespace-nowrap rounded-full bg-(--rc-red) px-3.5 py-1.5 text-[13px] font-extrabold opacity-0 transition duration-400 ${EASE} group-hover:translate-y-0 group-hover:opacity-100`}
+            className={`absolute bottom-3 left-1/2 -translate-x-1/2 translate-y-2 whitespace-nowrap rounded-full bg-(--rc-red) px-3.5 py-1.5 text-[13px] font-extrabold text-white opacity-0 transition duration-400 ${EASE} group-hover:translate-y-0 group-hover:opacity-100`}
           >
             {charla.hora} hs
           </span>
@@ -49,7 +49,7 @@ const SpeakerCard = ({ charla, indice, favorita, onFavorito }) => {
           {speaker.nombre}
           <span className="block">{speaker.apellido}</span>
         </h3>
-        <p className="mt-3 rounded-[14px] bg-(--rc-surface-2) px-4 py-2.5 font-extrabold leading-tight transition-colors duration-300 group-hover:bg-(--rc-red)">
+        <p className="mt-3 rounded-[14px] bg-(--rc-surface-2) px-4 py-2.5 font-extrabold leading-tight transition-colors duration-300 group-hover:bg-(--rc-red) group-hover:text-white">
           {charla.titulo}
         </p>
         <p className="mt-4 leading-[1.55] text-(--rc-text-soft)">

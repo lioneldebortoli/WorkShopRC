@@ -31,7 +31,7 @@ export const Agenda = () => {
             perder y armá tu propia agenda.
           </p>
           <p className="mt-6 inline-flex items-center gap-2 rounded-full border border-(--rc-chip-border) px-4 py-1.5 font-semibold">
-            <span className="text-[#f5b301]" aria-hidden="true">★</span>
+            <span className="text-(--rc-estrella)" aria-hidden="true">★</span>
             {favoritos.length === 1 ? "1 charla marcada" : `${favoritos.length} charlas marcadas`}
           </p>
         </Reveal>
@@ -48,7 +48,7 @@ export const Agenda = () => {
                 aria-controls="agenda-lista"
                 onClick={() => setPestana(id)}
                 className={`min-h-11 cursor-pointer rounded-full px-4 text-sm font-extrabold transition sm:px-5 sm:text-base ${
-                  pestana === id ? "bg-(--rc-red) text-(--rc-white)" : "text-(--rc-text-soft) hover:text-(--rc-white)"
+                  pestana === id ? "bg-(--rc-red) text-white" : "text-(--rc-text-soft) hover:text-(--rc-white)"
                 }`}
               >
                 {texto}
@@ -60,7 +60,7 @@ export const Agenda = () => {
           <div id="agenda-lista" role="tabpanel" aria-labelledby={`pestana-${pestana}`}>
             {items.length === 0 ? (
               <div className="rounded-[28px] border border-dashed border-(--rc-chip-border) px-6 py-12 text-center">
-                <p className="text-4xl text-[#f5b301]" aria-hidden="true">☆</p>
+                <p className="text-4xl text-(--rc-estrella)" aria-hidden="true">☆</p>
                 <p className="mt-3 text-xl font-extrabold">Todavía no marcaste charlas</p>
                 <p className="mx-auto mt-2 max-w-[360px] text-(--rc-text-soft)">
                   Tocá la estrella de las charlas que te interesan y aparecen acá, ordenadas por horario.

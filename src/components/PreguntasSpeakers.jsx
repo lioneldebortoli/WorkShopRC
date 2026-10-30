@@ -14,7 +14,7 @@ const CHARLAS_ORDENADAS = [...CHARLAS].sort(porHorario);
 const VACIO = { nombre: "", charla: "", texto: "" };
 
 const ESTILO_CAMPO =
-  "w-full rounded-[14px] border bg-(--rc-black) px-4 text-(--rc-white) outline-none transition placeholder:text-[#71717a] focus:border-(--rc-red)";
+  "w-full rounded-[14px] border bg-(--rc-black) px-4 text-(--rc-white) outline-none transition placeholder:text-(--rc-placeholder) focus:border-(--rc-red)";
 
 const formatearFecha = (iso) =>
   new Date(iso).toLocaleString("es-AR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
@@ -86,7 +86,7 @@ export const PreguntasSpeakers = () => {
     .filter((p) => filtro === "todas" || p.charla === filtro)
     .sort((a, b) => (orden === "votadas" ? b.votos - a.votos || b.fecha.localeCompare(a.fecha) : b.fecha.localeCompare(a.fecha)));
 
-  const borde = (campo) => (errores[campo] ? "border-[#ff4d55]" : "border-(--rc-chip-border)");
+  const borde = (campo) => (errores[campo] ? "border-(--rc-error)" : "border-(--rc-chip-border)");
 
   return (
     <section id="preguntas" className="mx-auto mt-24 max-w-[1248px] px-6 text-(--rc-white)">
@@ -130,7 +130,7 @@ export const PreguntasSpeakers = () => {
                 onChange={cambiar}
                 aria-invalid={errores.charla ? "true" : undefined}
                 aria-describedby={errores.charla ? `${id}-charla-error` : undefined}
-                className={`${ESTILO_CAMPO} h-12 cursor-pointer ${borde("charla")} ${datos.charla ? "" : "text-[#71717a]"}`}
+                className={`${ESTILO_CAMPO} h-12 cursor-pointer ${borde("charla")} ${datos.charla ? "" : "text-(--rc-placeholder)"}`}
               >
                 <option value="" disabled>
                   Elegí una charla
@@ -142,7 +142,7 @@ export const PreguntasSpeakers = () => {
                 ))}
               </select>
               {errores.charla && (
-                <p id={`${id}-charla-error`} className="mt-1.5 text-sm font-semibold text-[#ff4d55]">
+                <p id={`${id}-charla-error`} className="mt-1.5 text-sm font-semibold text-(--rc-error)">
                   {errores.charla}
                 </p>
               )}
@@ -166,13 +166,13 @@ export const PreguntasSpeakers = () => {
               />
               <div className="flex justify-between gap-4">
                 {errores.texto && (
-                  <p id={`${id}-texto-error`} className="mt-1.5 text-sm font-semibold text-[#ff4d55]">
+                  <p id={`${id}-texto-error`} className="mt-1.5 text-sm font-semibold text-(--rc-error)">
                     {errores.texto}
                   </p>
                 )}
                 <p
                   id={`${id}-texto-contador`}
-                  className={`mt-1.5 ml-auto text-sm tabular-nums ${datos.texto.length > MAXIMO ? "text-[#ff4d55]" : "text-(--rc-text-mute)"}`}
+                  className={`mt-1.5 ml-auto text-sm tabular-nums ${datos.texto.length > MAXIMO ? "text-(--rc-error)" : "text-(--rc-text-mute)"}`}
                 >
                   {datos.texto.length}/{MAXIMO}
                 </p>
@@ -181,7 +181,7 @@ export const PreguntasSpeakers = () => {
 
             <button
               type="submit"
-              className="flex min-h-[56px] w-full cursor-pointer items-center justify-center rounded-full bg-(--rc-red) px-4 text-lg font-extrabold transition duration-300 hover:-translate-y-0.5 hover:bg-[#ff2d3a] hover:shadow-[0_12px_30px_rgba(224,32,42,0.45)] motion-reduce:transition-none"
+              className="text-white flex min-h-[56px] w-full cursor-pointer items-center justify-center rounded-full bg-(--rc-red) px-4 text-lg font-extrabold transition duration-300 hover:-translate-y-0.5 hover:bg-(--rc-red-hover) hover:shadow-[0_12px_30px_rgba(224,32,42,0.45)] motion-reduce:transition-none"
             >
               Enviar pregunta
             </button>

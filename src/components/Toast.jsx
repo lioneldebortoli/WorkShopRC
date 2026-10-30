@@ -18,8 +18,8 @@ export const Toast = ({ mensaje, onCerrar }) => {
       }`}
     >
       {mensaje && (
-        <div className="flex items-center gap-3 rounded-[18px] border border-[#4ade80]/40 bg-(--rc-surface-2) px-5 py-4 text-(--rc-white) shadow-[0_18px_40px_rgba(0,0,0,0.5)]">
-          <span aria-hidden="true" className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-600 font-extrabold">
+        <div className="flex items-center gap-3 rounded-[18px] border border-(--rc-exito)/40 bg-(--rc-surface-2) px-5 py-4 text-(--rc-white) shadow-[0_18px_40px_var(--rc-sombra)]">
+          <span aria-hidden="true" className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-600 font-extrabold text-white">
             ✓
           </span>
           <p className="font-semibold">{mensaje}</p>

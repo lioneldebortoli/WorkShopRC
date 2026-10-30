@@ -32,7 +32,7 @@ export default function NotFound() {
         <div className="relative mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
           <Link
             to="/"
-            className="inline-flex min-h-[60px] items-center gap-3 rounded-full bg-(image:--rc-gradient) px-10 text-lg font-extrabold shadow-[0_12px_32px_rgba(224,32,42,0.35)] transition hover:brightness-110"
+            className="inline-flex min-h-[60px] items-center gap-3 rounded-full bg-(image:--rc-gradient) px-10 text-lg font-extrabold text-white shadow-[0_12px_32px_rgba(224,32,42,0.35)] transition hover:brightness-110"
           >
             <span aria-hidden="true">←</span>
             Volver al inicio

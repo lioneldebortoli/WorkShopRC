@@ -64,7 +64,7 @@ export default function Entradas({ onComprar }) {
 
       <Reveal
         retraso={100}
-        className="mt-10 flex flex-col gap-8 rounded-[32px] border border-(--rc-border) bg-[linear-gradient(90deg,#1c0c0d,var(--rc-surface))] p-6 md:p-9 lg:flex-row lg:items-center lg:justify-between"
+        className="mt-10 flex flex-col gap-8 rounded-[32px] border border-(--rc-border) bg-[linear-gradient(90deg,var(--rc-tinte),var(--rc-surface))] p-6 md:p-9 lg:flex-row lg:items-center lg:justify-between"
       >
         <div className="lg:max-w-[360px]">
           <p className="text-sm font-extrabold uppercase tracking-[3px] text-(--rc-red)">
@@ -158,7 +158,7 @@ function Card({ card, selected, confirmed, onSelect, onBuy }) {
       aria-pressed={selected}
       className={`relative flex h-full cursor-pointer flex-col rounded-[32px] border p-6 transition-all duration-300 md:p-9 ${
         selected
-          ? "border-transparent bg-(image:--rc-gradient) shadow-[0_22px_50px_rgba(224,32,42,0.25)]"
+          ? "siempre-oscuro border-transparent bg-(image:--rc-gradient) shadow-[0_22px_50px_rgba(224,32,42,0.25)]"
           : "border-(--rc-border) bg-(--rc-surface) hover:border-(--rc-red)"
       }`}
     >
