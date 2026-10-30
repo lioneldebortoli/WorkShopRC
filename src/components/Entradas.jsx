@@ -3,8 +3,10 @@ import checkRojo from "../assets/iconos/check-rojo.svg";
 import { useState, useEffect } from "react";
 import { Reveal } from "./Reveal";
 import { useEnPantalla } from "../hooks/useEnPantalla";
+import { CUPOS_EARLY_BIRD, ENTRADAS, FIN_EARLY_BIRD, QUEDAN_EARLY_BIRD, VENDIDAS_EARLY_BIRD } from "../data/entradas";
+import { formatearPrecio } from "../utils/formato";
 
-const EARLY_BIRD_DEADLINE = new Date(2026, 9, 31, 23, 59, 59).getTime();
+const EARLY_BIRD_DEADLINE = FIN_EARLY_BIRD.getTime();
 
 function getTimeLeft() {
   const difference = Math.max(EARLY_BIRD_DEADLINE - Date.now(), 0);
@@ -46,49 +48,8 @@ export default function Entradas({ onComprar }) {
     return () => clearInterval(interval);
   }, []);
 
-  const cards = [
-    {
-      id: "early",
-      title: "Early Bird",
-      price: "$25.000",
-      oldPrice: "$35.000",
-      badge: "Quedan 38",
-      subtitle: "Presencial · precio especial hasta el 31/10",
-      features: [
-        "Acceso a las 10 charlas",
-        "Kit de stickers Rolling Code",
-        "Certificado de asistencia",
-        "Coffee break y networking con los speakers",
-        "Grabación de todas las charlas",
-      ],
-    },
-    {
-      id: "general",
-      title: "General",
-      price: "$35.000",
-      badge: "Desde el 1/11",
-      subtitle: "Presencial · precio regular",
-      features: [
-        "Acceso a las 10 charlas",
-        "Certificado de asistencia",
-        "Coffee break y networking con los speakers",
-        "Grabación de todas las charlas",
-      ],
-    },
-    {
-      id: "virtual",
-      title: "Virtual",
-      price: "$15.000",
-      badge: "Desde donde estés",
-      subtitle: "Transmisión en vivo",
-      features: [
-        "Transmisión en vivo de las 10 charlas",
-        "Chat para hacer preguntas a los speakers",
-        "Certificado de asistencia",
-        "Grabación disponible por 30 días",
-      ],
-    },
-  ];
+  const porcentajeVendidas = Math.round((VENDIDAS_EARLY_BIRD / CUPOS_EARLY_BIRD) * 100);
+  const [early, general] = ENTRADAS;
 
   return (
     <section id="entradas" className="mx-auto mt-24 max-w-[1248px] px-6 text-(--rc-white)">
@@ -103,9 +64,9 @@ export default function Entradas({ onComprar }) {
 
       <Reveal
         retraso={100}
-        className="mt-10 flex flex-col gap-8 rounded-[32px] border border-(--rc-border) bg-[linear-gradient(90deg,#1c0c0d,var(--rc-surface))] p-6 md:p-9 lg:flex-row lg:items-center lg:justify-between"
+        className="mt-10 flex flex-col gap-8 rounded-[32px] border border-(--rc-border) bg-[linear-gradient(90deg,var(--rc-tinte),var(--rc-surface))] p-6 md:p-9 xl:flex-row xl:items-center xl:justify-between"
       >
-        <div className="lg:max-w-[360px]">
+        <div className="xl:max-w-[360px]">
           <p className="text-sm font-extrabold uppercase tracking-[3px] text-(--rc-red)">
             Early Bird
           </p>
@@ -113,7 +74,7 @@ export default function Entradas({ onComprar }) {
             El precio especial termina el 31/10
           </p>
           <p className="mt-2 text-base text-(--rc-text-soft)">
-            Después la entrada pasa de $25.000 a $35.000.
+            Después la entrada pasa de {formatearPrecio(early.precio)} a {formatearPrecio(general.precio)}.
           </p>
         </div>
 
@@ -131,27 +92,29 @@ export default function Entradas({ onComprar }) {
               <div className="text-[28px] font-extrabold leading-none tabular-nums md:text-[40px]">
                 {String(item.value).padStart(2, "0")}
               </div>
-              <div className="mt-1.5 text-xs tracking-[2px] text-(--rc-text-mute)">{item.label}</div>
+              <div className="mt-1.5 text-[10px] tracking-[1px] text-(--rc-text-mute) min-[360px]:text-xs min-[360px]:tracking-[2px]">{item.label}</div>
             </div>
           ))}
         </div>
 
-        <div className="w-full lg:w-[360px]">
-          <div className="flex justify-between text-sm">
-            <span className="font-semibold">Quedan 38 de 60 Early Bird</span>
-            <span className="text-(--rc-text-mute)">63% vendidas</span>
+        <div className="w-full xl:w-[300px] xl:shrink-0">
+          <div className="flex flex-wrap justify-between gap-x-4 gap-y-1 text-sm">
+            <span className="whitespace-nowrap font-semibold">
+              Quedan {QUEDAN_EARLY_BIRD} de {CUPOS_EARLY_BIRD} Early Bird
+            </span>
+            <span className="whitespace-nowrap text-(--rc-text-mute)">{porcentajeVendidas}% vendidas</span>
           </div>
           <div ref={barraRef} className="mt-2 h-2 overflow-hidden rounded-full bg-(--rc-surface-2)">
             <div
               className="h-full rounded-full bg-(--rc-red) transition-[width] delay-300 duration-1200 ease-out motion-reduce:transition-none"
-              style={{ width: barraVisible ? "63%" : "0%" }}
+              style={{ width: barraVisible ? `${porcentajeVendidas}%` : "0%" }}
             />
           </div>
         </div>
       </Reveal>
 
       <div className="mt-6 grid gap-6 md:grid-cols-2">
-        {cards.slice(0, 2).map((card, i) => (
+        {ENTRADAS.slice(0, 2).map((card, i) => (
           <Reveal key={card.id} retraso={i * 120} className="h-full">
             <Card
               card={card}
@@ -166,7 +129,7 @@ export default function Entradas({ onComprar }) {
 
       <Reveal className="mt-6">
         <Card
-          card={cards[2]}
+          card={ENTRADAS[2]}
           selected={selected === "virtual"}
           confirmed={confirmedTicket === "virtual"}
           onSelect={() => selectCard("virtual")}
@@ -195,40 +158,40 @@ function Card({ card, selected, confirmed, onSelect, onBuy }) {
       aria-pressed={selected}
       className={`relative flex h-full cursor-pointer flex-col rounded-[32px] border p-6 transition-all duration-300 md:p-9 ${
         selected
-          ? "border-transparent bg-(image:--rc-gradient) shadow-[0_22px_50px_rgba(224,32,42,0.25)]"
+          ? "siempre-oscuro border-transparent bg-(image:--rc-gradient) shadow-[0_22px_50px_rgba(224,32,42,0.25)]"
           : "border-(--rc-border) bg-(--rc-surface) hover:border-(--rc-red)"
       }`}
     >
-      <div className="flex items-start justify-between gap-4">
-        <h3 className="text-2xl font-extrabold">{card.title}</h3>
-        {card.badge && (
+      <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+        <h3 className="text-2xl font-extrabold">{card.nombre}</h3>
+        {card.insignia && (
           <span
             className={`whitespace-nowrap rounded-full px-3.5 py-1 text-sm font-extrabold ${
               selected ? "bg-(--rc-black)" : "border border-(--rc-chip-border) text-(--rc-text-soft)"
             }`}
           >
-            {card.badge}
+            {card.insignia}
           </span>
         )}
       </div>
 
       <div className="mt-5 flex flex-wrap items-end gap-3">
         <span className="text-[clamp(44px,5vw,56px)] font-extrabold leading-none tracking-[-1px]">
-          {card.price}
+          {formatearPrecio(card.precio)}
         </span>
-        {card.oldPrice && (
+        {card.precioAnterior && (
           <span className="mb-1 text-xl text-(--rc-pink-soft) line-through opacity-80">
-            {card.oldPrice}
+            {formatearPrecio(card.precioAnterior)}
           </span>
         )}
       </div>
 
       <p className={`mt-4 text-base ${selected ? "text-(--rc-pink-soft)" : "text-(--rc-text-mute)"}`}>
-        {card.subtitle}
+        {card.subtitulo}
       </p>
 
       <ul className="mt-6 mb-8 grow space-y-3">
-        {card.features.map((feature) => (
+        {card.beneficios.map((feature) => (
           <li key={feature} className="flex items-start gap-3 text-base md:text-lg">
             <img src={selected ? checkBlanco : checkRojo} alt="" className="mt-1 h-5 w-5 shrink-0" />
             <span>{feature}</span>

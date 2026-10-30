@@ -1,4 +1,5 @@
 import logo from "../assets/logo/logo-rolling-blanco.png";
+import logoNegro from "../assets/logo/logo-rolling-negro.png";
 import instagramIcon from "../assets/iconos/instagram.svg";
 import facebookIcon from "../assets/iconos/facebook.svg";
 import linkedinIcon from "../assets/iconos/linkedin.svg";
@@ -20,7 +21,8 @@ export const Footer = () => {
     <footer className="mt-24 border-t border-(--rc-border)">
       <div className="mx-auto flex max-w-[1248px] flex-col items-center justify-between gap-6 px-6 py-8 sm:flex-row">
         <a href="/#inicio" aria-label="Volver al inicio">
-          <img src={logo} alt="Rolling Code School" className="h-10 w-auto" />
+          <img src={logo} alt="Rolling Code School" className="h-10 w-auto claro:hidden" />
+          <img src={logoNegro} alt="Rolling Code School" className="hidden h-10 w-auto claro:block" />
         </a>
 
         <ul aria-label="Redes sociales" className="flex flex-wrap items-center justify-center gap-2.5">
@@ -31,9 +33,9 @@ export const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${nombre} (se abre en otra pestaña)`}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-(--rc-chip-border) bg-(--rc-surface-2) transition duration-300 hover:-translate-y-0.5 hover:border-(--rc-red) hover:bg-(--rc-red) motion-reduce:transition-none"
+                className="group flex h-11 w-11 items-center justify-center rounded-full border border-(--rc-chip-border) bg-(--rc-surface-2) transition duration-300 hover:-translate-y-0.5 hover:border-(--rc-red) hover:bg-(--rc-red) motion-reduce:transition-none"
               >
-                <img src={icono} alt="" className="h-5 w-5" />
+                <img src={icono} alt="" className="h-5 w-5 claro:invert claro:group-hover:invert-0" />
               </a>
             </li>
           ))}

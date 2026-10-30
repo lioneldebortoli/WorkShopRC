@@ -1,61 +1,76 @@
+import { useState } from "react";
 import Boton from "./Boton";
+import SelectorCantidad from "./SelectorCantidad";
+import { formatearPrecio } from "../../utils/formato";
 
-export default function StepEntrada({ tickets, ticketId, setTicketId, cantidad, setCantidad, onContinuar }) {
+export default function StepEntrada({ entradas, cantidades, setCantidades, cantidadTotal, onContinuar }) {
+  const [avisos, setAvisos] = useState({});
+  const [error, setError] = useState("");
+
+  const cambiar = (id, valor) => {
+    setCantidades((actuales) => ({ ...actuales, [id]: valor }));
+    setError("");
+  };
+
+  const continuar = () => {
+    if (cantidadTotal === 0) {
+      setError("Elegí al menos una entrada para continuar.");
+      return;
+    }
+    onContinuar();
+  };
+
   return (
     <>
-      <h2 className="text-2xl font-extrabold">Elegí tu entrada</h2>
+      <h2 className="text-2xl font-extrabold">Elegí tus entradas</h2>
+      <p className="mt-1 text-sm text-(--rc-gray-on-white)">
+        Podés combinar modalidades: por ejemplo 2 virtuales y 1 presencial.
+      </p>
 
-      <div className="mt-5 space-y-3">
-        {tickets.map((t) => {
-          const elegida = ticketId === t.id;
+      <ul className="mt-5 space-y-3">
+        {entradas.map((entrada) => {
+          const cantidad = cantidades[entrada.id];
           return (
-            <button
-              key={t.id}
-              type="button"
-              aria-pressed={elegida}
-              onClick={() => setTicketId(t.id)}
-              className={`flex w-full cursor-pointer items-center justify-between gap-4 rounded-[18px] border-2 px-5 py-4 text-left ${
-                elegida
-                  ? "border-(--rc-black) bg-(--rc-black) text-(--rc-white)"
-                  : "border-(--rc-input-border) bg-(--rc-white) text-(--rc-black)"
+            <li
+              key={entrada.id}
+              className={`rounded-[18px] border-2 px-4 py-4 sm:px-5 ${
+                cantidad > 0 ? "border-(--rc-black)" : "border-(--rc-input-border)"
               }`}
             >
-              <span>
-                <span className="block text-lg font-extrabold">{t.nombre}</span>
-                <span className={`block text-sm ${elegida ? "text-(--rc-text-mute)" : "text-(--rc-gray-on-white)"}`}>
-                  {t.detalle}
-                </span>
-              </span>
-              <span className="text-xl font-extrabold">${t.precio.toLocaleString("de-DE")}</span>
-            </button>
+              <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
+                <div className="min-w-0">
+                  <p className="text-lg font-extrabold">
+                    {entrada.nombre} · {formatearPrecio(entrada.precio)}
+                  </p>
+                  <p className="text-sm text-(--rc-gray-on-white)">{entrada.detalle}</p>
+                  <p className="text-xs font-semibold text-(--rc-gray-on-white)">Quedan {entrada.stock}</p>
+                </div>
+                <SelectorCantidad
+                  id={`cantidad-${entrada.id}`}
+                  nombre={entrada.nombre}
+                  cantidad={cantidad}
+                  stock={entrada.stock}
+                  onCambiar={(valor) => cambiar(entrada.id, valor)}
+                  onAviso={(texto) => setAvisos((actuales) => ({ ...actuales, [entrada.id]: texto }))}
+                />
+              </div>
+              {avisos[entrada.id] && (
+                <p aria-live="polite" className="mt-2 text-sm font-semibold text-(--rc-red)">
+                  {avisos[entrada.id]}
+                </p>
+              )}
+            </li>
           );
         })}
-      </div>
+      </ul>
 
-      <div className="mt-6 flex items-center justify-between">
-        <span className="font-extrabold">Cantidad</span>
-        <div className="flex items-center gap-4">
-          <button
-            type="button"
-            aria-label="Quitar una entrada"
-            onClick={() => setCantidad(Math.max(1, cantidad - 1))}
-            className="h-12 w-12 cursor-pointer rounded-full border-2 border-(--rc-input-border) text-xl font-extrabold"
-          >
-            −
-          </button>
-          <span className="w-6 text-center text-xl font-extrabold">{cantidad}</span>
-          <button
-            type="button"
-            aria-label="Agregar una entrada"
-            onClick={() => setCantidad(cantidad + 1)}
-            className="h-12 w-12 cursor-pointer rounded-full border-2 border-(--rc-input-border) text-xl font-extrabold"
-          >
-            +
-          </button>
-        </div>
-      </div>
+      {error && (
+        <p role="alert" className="mt-4 text-sm font-semibold text-(--rc-red)">
+          {error}
+        </p>
+      )}
 
-      <Boton onClick={onContinuar} className="mt-6 w-full">
+      <Boton onClick={continuar} className="mt-6 w-full">
         Continuar
       </Boton>
     </>

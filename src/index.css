@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant claro (&:where([data-tema="claro"], [data-tema="claro"] *));
+
 @theme {
   --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
   --animate-flotar: flotar 6s ease-in-out infinite;
@@ -18,20 +20,70 @@
 :root {
   --rc-red: #e0202a;
   --rc-red-dark: #a50d14;
-  --rc-red-deep: #6e070c;
+  --rc-red-hover: #ff2d3a;
+  --rc-gray-on-white: #52525b;
+  --rc-input-border: #d4d4d8;
+  --rc-gradient: linear-gradient(160deg, var(--rc-red) 0%, var(--rc-red-dark) 55%, #6e070c 100%);
+}
+
+:root,
+.siempre-oscuro {
   --rc-black: #0b0b0c;
   --rc-surface: #111113;
   --rc-surface-2: #26262a;
+  --rc-surface-hover: #161618;
+  --rc-tarjeta-desde: #18181b;
+  --rc-tinte: #1c0c0d;
   --rc-border: #2c2c31;
   --rc-chip-border: #3a3a40;
-  --rc-menu-line: #1f1f23;
   --rc-white: #ffffff;
   --rc-text-soft: #d4d4d8;
   --rc-text-mute: #a1a1aa;
-  --rc-input-border: #d4d4d8;
+  --rc-placeholder: #71717a;
   --rc-pink-soft: #ffe9ea;
-  --rc-gray-on-white: #52525b;
-  --rc-gradient: linear-gradient(160deg, #e0202a 0%, #a50d14 55%, #6e070c 100%);
+  --rc-error: #ff4d55;
+  --rc-exito: #4ade80;
+  --rc-estrella: #f5b301;
+  --rc-oro: #e8c547;
+  --rc-bronce: #d9822b;
+  --rc-sombra: rgba(0, 0, 0, 0.45);
+  --rc-nav: rgba(11, 11, 12, 0.96);
+  --rc-nav-blur: rgba(11, 11, 12, 0.82);
+  --rc-panel: rgba(11, 11, 12, 0.72);
+}
+
+[data-tema="claro"] {
+  --rc-red: #dc2626;
+  --rc-red-dark: #b91c1c;
+  --rc-red-hover: #b91c1c;
+  --rc-black: #fafafa;
+  --rc-surface: #ffffff;
+  --rc-surface-2: #f4f4f5;
+  --rc-surface-hover: #ffffff;
+  --rc-tarjeta-desde: #ffffff;
+  --rc-tinte: #fef2f2;
+  --rc-border: #e4e4e7;
+  --rc-chip-border: #d4d4d8;
+  --rc-white: #1a1a1a;
+  --rc-text-soft: #374151;
+  --rc-text-mute: #52525b;
+  --rc-placeholder: #71717a;
+  --rc-pink-soft: #b91c1c;
+  --rc-error: #dc2626;
+  --rc-exito: #15803d;
+  --rc-estrella: #d97706;
+  --rc-oro: #a16207;
+  --rc-bronce: #c2410c;
+  --rc-sombra: rgba(0, 0, 0, 0.12);
+  --rc-nav: rgba(250, 250, 250, 0.96);
+  --rc-nav-blur: rgba(250, 250, 250, 0.85);
+  --rc-panel: rgba(255, 255, 255, 0.9);
+}
+
+.siempre-oscuro {
+  --rc-red: #e0202a;
+  --rc-red-hover: #ff2d3a;
+  color: var(--rc-white);
 }
 
 html {
@@ -44,6 +96,7 @@ body {
   color: var(--rc-white);
   background-color: var(--rc-black);
   overflow-x: clip;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .miContenedor {
@@ -53,5 +106,9 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  body {
+    transition: none;
   }
 }

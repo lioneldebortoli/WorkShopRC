@@ -50,7 +50,7 @@ export const UbicacionEvento = () => {
             </a>
             <a
               href="#entradas"
-              className="inline-flex min-h-[52px] items-center rounded-full bg-(--rc-red) px-8 text-lg font-extrabold transition hover:bg-(--rc-red-dark)"
+              className="inline-flex min-h-[52px] items-center rounded-full bg-(--rc-red) px-8 text-lg font-extrabold text-white transition hover:bg-(--rc-red-dark)"
             >
               Comprar entrada
             </a>
@@ -64,7 +64,7 @@ export const UbicacionEvento = () => {
               src={MAPA_URL}
               loading="lazy"
               referrerPolicy="no-referrer"
-              className="block h-full w-full border-0 [filter:invert(0.92)_hue-rotate(180deg)_grayscale(0.4)_contrast(0.9)_brightness(0.9)]"
+              className="block h-full w-full border-0 [filter:invert(0.92)_hue-rotate(180deg)_grayscale(0.4)_contrast(0.9)_brightness(0.9)] claro:[filter:none]"
             ></iframe>
 
             <div className="pointer-events-none absolute bottom-3 left-3 flex max-w-[calc(100%-24px)] items-center gap-3 rounded-[20px] border border-(--rc-border) bg-(--rc-black)/90 px-5 py-3.5 backdrop-blur-md">

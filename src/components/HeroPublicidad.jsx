@@ -12,14 +12,14 @@ const DATOS = [
 export const HeroPublicidad = () => {
   return (
     <section id="inicio" className="mt-12 overflow-x-clip px-6">
-      <div className="miContenedor mx-auto max-w-[1312px] rounded-[40px] px-6 py-12 text-(--rc-white) lg:px-14 lg:py-16">
-        <div className="grid items-center gap-12 lg:grid-cols-[7fr_5fr]">
+      <div className="miContenedor siempre-oscuro mx-auto max-w-[1312px] rounded-[40px] px-6 py-12 text-(--rc-white) lg:px-14 lg:py-16">
+        <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-12 lg:grid-cols-[7fr_5fr]">
           <Reveal desde="izquierda">
             <p className="text-lg uppercase md:text-[26px]">
               <span className="font-light italic">Workshop</span>{" "}
               <span className="font-extrabold">Entradas limitadas</span>
             </p>
-            <h1 className="mt-4 text-[clamp(40px,6vw,88px)] font-extrabold leading-[1.02] tracking-[-1.5px]">
+            <h1 className="mt-4 text-[32px] font-extrabold min-[360px]:text-[clamp(40px,6vw,88px)] leading-[1.02] tracking-[-1.5px]">
               ¿POR DÓNDE EMPIEZO A{" "}
               <span className="text-(--rc-black)">PROGRAMAR?</span>
             </h1>
@@ -47,24 +47,24 @@ export const HeroPublicidad = () => {
           <Reveal desde="derecha" retraso={150}>
             <aside
               aria-label="Datos del evento"
-              className="rounded-[32px] bg-(--rc-black) p-7 motion-safe:animate-flotar md:p-9"
+              className="rounded-[32px] bg-(--rc-black) p-5 motion-safe:animate-flotar min-[360px]:p-7 md:p-9"
             >
               <ul>
                 {DATOS.map((dato) => (
                   <li
                     key={dato.titulo}
-                    className="flex items-center gap-5 border-b border-white/15 py-5 first:pt-0"
+                    className="flex items-center gap-4 border-b border-white/15 py-5 first:pt-0 min-[360px]:gap-5"
                   >
-                    <img src={dato.icono} alt="" className="h-9 w-9 shrink-0" />
+                    <img src={dato.icono} alt="" className="h-8 w-8 shrink-0 min-[360px]:h-9 min-[360px]:w-9" />
                     {dato.grande ? (
                       <p className="leading-none">
-                        <span className="block text-[32px] font-extrabold">{dato.titulo}</span>
-                        <span className="mt-1 block text-[38px]">{dato.detalle}</span>
+                        <span className="block text-[26px] font-extrabold min-[360px]:text-[32px]">{dato.titulo}</span>
+                        <span className="mt-1 block text-[30px] min-[360px]:text-[38px]">{dato.detalle}</span>
                       </p>
                     ) : (
                       <p>
-                        <span className="block text-2xl font-extrabold">{dato.titulo}</span>
-                        <span className="block text-xl text-(--rc-text-soft)">{dato.detalle}</span>
+                        <span className="block text-xl font-extrabold min-[360px]:text-2xl">{dato.titulo}</span>
+                        <span className="block text-lg text-(--rc-text-soft) min-[360px]:text-xl">{dato.detalle}</span>
                       </p>
                     )}
                   </li>
