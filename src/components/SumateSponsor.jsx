@@ -129,7 +129,7 @@ export const SumateSponsor = () => {
       >
         {enviado ? (
           <div className="py-10 text-center" role="status">
-            <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-(--rc-red)">
+            <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-600">
               <svg viewBox="0 0 24 24" aria-hidden="true" className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12.5l4.5 4.5L19 7.5" />
               </svg>
