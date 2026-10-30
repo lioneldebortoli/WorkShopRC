@@ -3,6 +3,8 @@ import mercadoLibre from "../assets/sponsors/mercado-libre-logo.png";
 import microsoft from "../assets/sponsors/Microsoft_Logo_256px.png";
 import globant from "../assets/sponsors/globant_icono_256x256.png";
 
+const mezcla = (color, porcentaje) => `color-mix(in srgb, ${color} ${porcentaje}%, transparent)`;
+
 const ICONOS = "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons";
 
 const NIVELES = [
@@ -11,7 +13,7 @@ const NIVELES = [
     titulo: "Main Partners",
     insignia: "Tier Diamante",
     texto: "Presencia estelar en conferencias, stands experienciales y becas formativas",
-    color: "#e0202a",
+    color: "var(--rc-red)",
     empresas: [
       {
         nombre: "Google Cloud",
@@ -21,7 +23,7 @@ const NIVELES = [
         descripcion: "Infraestructura global ultra-escalable, Gemini AI APIs y programas de formación profesional para devs.",
         rubro: "Cloud & AI",
         destaque: "100% Verified",
-        color: "#e0202a",
+        color: "var(--rc-red)",
       },
       {
         nombre: "Amazon Web Services",
@@ -31,7 +33,7 @@ const NIVELES = [
         descripcion: "Servicios de nube, arquitecturas serverless y vouchers para certificaciones oficiales para la comunidad.",
         rubro: "Cloud Hosting",
         destaque: "Global Leader",
-        color: "#d9822b",
+        color: "var(--rc-bronce)",
       },
       {
         nombre: "Mercado Libre",
@@ -41,7 +43,7 @@ const NIVELES = [
         descripcion: "El mayor ecosistema tech de Latinoamérica impulsando becas, hackathons y pasantías directas de empleo.",
         rubro: "Fintech Scale",
         destaque: "Unicorn LATAM",
-        color: "#e8c547",
+        color: "var(--rc-oro)",
       },
     ],
   },
@@ -50,13 +52,13 @@ const NIVELES = [
     titulo: "Gold Tier",
     insignia: "Nivel Oro",
     texto: "Líderes de producto, frameworks y transformación digital global",
-    color: "#e8c547",
+    color: "var(--rc-oro)",
     empresas: [
       { nombre: "Microsoft", imagen: microsoft, detalle: "Azure & Dev Tools", etiqueta: "Enterprise" },
-      { nombre: "GitHub", icono: "github", colorLogo: "#FFFFFF", detalle: "Open Source & Copilot", etiqueta: "Community" },
+      { nombre: "GitHub", icono: "github", colorLogo: "var(--rc-white)", detalle: "Open Source & Copilot", etiqueta: "Community" },
       { nombre: "Globant", imagen: globant, detalle: "Tech Reinvention", etiqueta: "Global Talent" },
       { nombre: "Auth0", icono: "auth0", colorLogo: "#EB5424", detalle: "Identity & Security", etiqueta: "Security" },
-      { nombre: "Vercel", icono: "vercel", colorLogo: "#FFFFFF", detalle: "Frontend Cloud & Next", etiqueta: "Deployment" },
+      { nombre: "Vercel", icono: "vercel", colorLogo: "var(--rc-white)", detalle: "Frontend Cloud & Next", etiqueta: "Deployment" },
     ],
   },
   {
@@ -64,7 +66,7 @@ const NIVELES = [
     titulo: "Bronze Tier",
     insignia: "Nivel Bronce",
     texto: "Herramientas y plataformas predilectas de la comunidad de desarrolladores",
-    color: "#d9822b",
+    color: "var(--rc-bronce)",
     empresas: [
       { nombre: "Supabase", icono: "supabase", colorLogo: "#3FCF8E", detalle: "Open-source DB" },
       { nombre: "DigitalOcean", icono: "digitalocean", colorLogo: "#0080FF", detalle: "Cloud VPS" },
@@ -108,7 +110,7 @@ const EncabezadoNivel = ({ nivel }) => (
     <span
       aria-hidden="true"
       className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border"
-      style={{ color: nivel.color, borderColor: `${nivel.color}66`, backgroundColor: `${nivel.color}14` }}
+      style={{ color: nivel.color, borderColor: mezcla(nivel.color, 40), backgroundColor: mezcla(nivel.color, 8) }}
     >
       <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z" />
@@ -121,7 +123,7 @@ const EncabezadoNivel = ({ nivel }) => (
         </h3>
         <span
           className="rounded-md border px-2 py-0.5 text-xs font-extrabold tracking-[1.5px] uppercase"
-          style={{ color: nivel.color, borderColor: `${nivel.color}80`, backgroundColor: `${nivel.color}14` }}
+          style={{ color: nivel.color, borderColor: mezcla(nivel.color, 50), backgroundColor: mezcla(nivel.color, 8) }}
         >
           {nivel.insignia}
         </span>
@@ -134,13 +136,13 @@ const EncabezadoNivel = ({ nivel }) => (
 const TarjetaPrincipal = ({ empresa }) => (
   <a
     href="#sumate-sponsor"
-    className="group flex h-full flex-col rounded-[28px] border-2 bg-[linear-gradient(180deg,#18181b,var(--rc-surface))] p-6 text-center transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_22px_50px_var(--brillo)] md:p-7"
-    style={{ borderColor: `${empresa.color}b3`, "--brillo": `${empresa.color}40` }}
+    className="group flex h-full flex-col rounded-[28px] border-2 bg-[linear-gradient(180deg,var(--rc-tarjeta-desde),var(--rc-surface))] p-6 text-center transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_22px_50px_var(--brillo)] md:p-7"
+    style={{ borderColor: mezcla(empresa.color, 70), "--brillo": mezcla(empresa.color, 25) }}
   >
     <span className="flex items-center justify-between">
       <span
         className="rounded-full border px-3 py-1 text-[11px] font-extrabold tracking-[1.5px] uppercase"
-        style={{ color: empresa.color, borderColor: `${empresa.color}66`, backgroundColor: `${empresa.color}14` }}
+        style={{ color: empresa.color, borderColor: mezcla(empresa.color, 40), backgroundColor: mezcla(empresa.color, 8) }}
       >
         {empresa.etiqueta}
       </span>
@@ -170,14 +172,14 @@ const TarjetaPrincipal = ({ empresa }) => (
 );
 
 const TarjetaChica = ({ empresa, color, grande }) => (
-  <div className="flex h-full flex-col items-center rounded-[20px] border border-(--rc-border) bg-(--rc-surface) px-3 py-5 text-center transition duration-300 hover:-translate-y-1 hover:border-(--rc-chip-border) hover:bg-[#161618]">
+  <div className="flex h-full flex-col items-center rounded-[20px] border border-(--rc-border) bg-(--rc-surface) px-3 py-5 text-center transition duration-300 hover:-translate-y-1 hover:border-(--rc-chip-border) hover:bg-(--rc-surface-hover)">
     <Logo empresa={empresa} tamano={grande ? "h-14 w-14 text-lg" : "h-11 w-11 text-sm"} />
     <p className={`mt-3 font-extrabold ${grande ? "text-lg" : "text-[15px]"}`}>{empresa.nombre}</p>
     <p className="mt-0.5 text-xs text-(--rc-text-mute)">{empresa.detalle}</p>
     {empresa.etiqueta && (
       <span
         className="mt-3 rounded-md border px-2 py-0.5 text-[11px] font-bold"
-        style={{ color, borderColor: `${color}66`, backgroundColor: `${color}14` }}
+        style={{ color, borderColor: mezcla(color, 40), backgroundColor: mezcla(color, 8) }}
       >
         {empresa.etiqueta}
       </span>

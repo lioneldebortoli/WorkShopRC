@@ -1,5 +1,7 @@
 import { useId, useRef, useState } from "react";
 import { Reveal } from "./Reveal";
+import { formatearPeso } from "../utils/formato";
+import { esEmail, esEmailPersonal, esSoloLetras } from "../utils/validaciones";
 
 const TIPOS = [
   { valor: "main", texto: "Main Partner · Tier Diamante" },
@@ -10,12 +12,11 @@ const TIPOS = [
 const FORMATOS = ["image/png", "image/svg+xml", "image/jpeg", "image/webp"];
 const PESO_MAXIMO = 5 * 1024 * 1024;
 const MENSAJE_MAXIMO = 500;
-const EMAILS_PERSONALES = ["gmail.com", "hotmail.com", "outlook.com", "yahoo.com", "live.com", "icloud.com"];
 
 const VACIO = { nombre: "", apellido: "", empresa: "", email: "", tipo: "", mensaje: "" };
 
 const ESTILO_CAMPO =
-  "w-full rounded-[14px] border bg-(--rc-black) px-4 text-(--rc-white) outline-none transition placeholder:text-[#71717a] focus:border-(--rc-red)";
+  "w-full rounded-[14px] border bg-(--rc-black) px-4 text-(--rc-white) outline-none transition placeholder:text-(--rc-placeholder) focus:border-(--rc-red)";
 
 const Etiqueta = ({ htmlFor, children, requerido }) => (
   <label htmlFor={htmlFor} className="mb-2 block text-xs font-extrabold tracking-[1.5px] uppercase">
@@ -30,13 +31,10 @@ const Etiqueta = ({ htmlFor, children, requerido }) => (
 
 const MensajeError = ({ id, children }) =>
   children ? (
-    <p id={id} className="mt-1.5 text-sm font-semibold text-[#ff4d55]">
+    <p id={id} className="mt-1.5 text-sm font-semibold text-(--rc-error)">
       {children}
     </p>
   ) : null;
-
-const formatearPeso = (bytes) =>
-  bytes < 1024 * 1024 ? `${Math.round(bytes / 1024)} KB` : `${(bytes / 1024 / 1024).toFixed(1)} MB`;
 
 export const SumateSponsor = () => {
   const id = useId();
@@ -59,7 +57,7 @@ export const SumateSponsor = () => {
     "aria-describedby": errores[nombre] ? `${id}-${nombre}-error` : undefined,
   });
 
-  const borde = (nombre) => (errores[nombre] ? "border-[#ff4d55]" : "border-(--rc-chip-border)");
+  const borde = (nombre) => (errores[nombre] ? "border-(--rc-error)" : "border-(--rc-chip-border)");
 
   const elegirLogo = (archivo) => {
     if (!archivo) return;
@@ -79,21 +77,20 @@ export const SumateSponsor = () => {
   const enviar = (e) => {
     e.preventDefault();
     const nuevos = {};
-    const soloLetras = /^[a-záéíóúüñ' ]+$/i;
     const email = datos.email.trim().toLowerCase();
 
     if (!datos.nombre.trim()) nuevos.nombre = "Completá tu nombre.";
-    else if (!soloLetras.test(datos.nombre.trim())) nuevos.nombre = "El nombre solo puede tener letras.";
+    else if (!esSoloLetras(datos.nombre)) nuevos.nombre = "El nombre solo puede tener letras.";
 
     if (!datos.apellido.trim()) nuevos.apellido = "Completá tu apellido.";
-    else if (!soloLetras.test(datos.apellido.trim())) nuevos.apellido = "El apellido solo puede tener letras.";
+    else if (!esSoloLetras(datos.apellido)) nuevos.apellido = "El apellido solo puede tener letras.";
 
     if (!datos.empresa.trim()) nuevos.empresa = "Completá el nombre de la empresa.";
     else if (datos.empresa.trim().length < 2) nuevos.empresa = "El nombre de la empresa es muy corto.";
 
     if (!email) nuevos.email = "Completá tu email corporativo.";
-    else if (!/^\S+@\S+\.\S+$/.test(email)) nuevos.email = "El email no es válido. Ejemplo: martin@acme.com";
-    else if (EMAILS_PERSONALES.includes(email.split("@")[1])) nuevos.email = "Usá el email de tu empresa, no uno personal.";
+    else if (!esEmail(email)) nuevos.email = "El email no es válido. Ejemplo: martin@acme.com";
+    else if (esEmailPersonal(email)) nuevos.email = "Usá el email de tu empresa, no uno personal.";
 
     if (!datos.tipo) nuevos.tipo = "Elegí un nivel de sponsoreo.";
 
@@ -128,11 +125,11 @@ export const SumateSponsor = () => {
 
       <Reveal
         retraso={100}
-        className="relative mx-auto mt-10 max-w-[900px] overflow-hidden rounded-[32px] border border-(--rc-border) bg-[linear-gradient(160deg,#18181b,var(--rc-surface)_60%,#1c0c0d)] p-6 md:p-10"
+        className="relative mx-auto mt-10 max-w-[900px] overflow-hidden rounded-[32px] border border-(--rc-border) bg-[linear-gradient(160deg,var(--rc-tarjeta-desde),var(--rc-surface)_60%,var(--rc-tinte))] p-6 md:p-10"
       >
         {enviado ? (
           <div className="py-10 text-center" role="status">
-            <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-(--rc-red)">
+            <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-600 text-white">
               <svg viewBox="0 0 24 24" aria-hidden="true" className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12.5l4.5 4.5L19 7.5" />
               </svg>
@@ -179,7 +176,7 @@ export const SumateSponsor = () => {
             <div className="md:col-span-2">
               <Etiqueta htmlFor={`${id}-tipo`} requerido>Tipo de sponsor</Etiqueta>
               <div className="relative">
-                <select {...campo("tipo")} className={`${ESTILO_CAMPO} h-12 cursor-pointer appearance-none pr-12 ${borde("tipo")} ${datos.tipo ? "" : "text-[#71717a]"}`}>
+                <select {...campo("tipo")} className={`${ESTILO_CAMPO} h-12 cursor-pointer appearance-none pr-12 ${borde("tipo")} ${datos.tipo ? "" : "text-(--rc-placeholder)"}`}>
                   <option value="" disabled>
                     Seleccioná un nivel
                   </option>
@@ -228,7 +225,7 @@ export const SumateSponsor = () => {
                   arrastrando
                     ? "border-(--rc-red) bg-(--rc-red)/10"
                     : errores.logo
-                      ? "border-[#ff4d55] bg-(--rc-black)"
+                      ? "border-(--rc-error) bg-(--rc-black)"
                       : "border-(--rc-chip-border) bg-(--rc-black) hover:border-(--rc-text-mute)"
                 }`}
               >
@@ -268,7 +265,7 @@ export const SumateSponsor = () => {
                 <MensajeError id={`${id}-mensaje-error`}>{errores.mensaje}</MensajeError>
                 <p
                   className={`mt-1.5 ml-auto text-sm tabular-nums ${
-                    datos.mensaje.length > MENSAJE_MAXIMO ? "text-[#ff4d55]" : "text-(--rc-text-mute)"
+                    datos.mensaje.length > MENSAJE_MAXIMO ? "text-(--rc-error)" : "text-(--rc-text-mute)"
                   }`}
                 >
                   {datos.mensaje.length}/{MENSAJE_MAXIMO}
@@ -278,12 +275,14 @@ export const SumateSponsor = () => {
 
             <button
               type="submit"
-              className="flex min-h-[56px] cursor-pointer items-center justify-center gap-2 rounded-full bg-(--rc-red) px-4 text-[15px] font-extrabold sm:gap-3 sm:text-lg transition duration-300 hover:-translate-y-0.5 hover:bg-[#ff2d3a] hover:shadow-[0_12px_30px_rgba(224,32,42,0.45)] md:col-span-2"
+              className="text-white flex min-h-[56px] cursor-pointer items-center justify-center gap-2 rounded-full bg-(--rc-red) px-4 text-[15px] font-extrabold sm:gap-3 sm:text-lg transition duration-300 hover:-translate-y-0.5 hover:bg-(--rc-red-hover) hover:shadow-[0_12px_30px_rgba(224,32,42,0.45)] md:col-span-2"
             >
               <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 3 10 14M21 3l-7 18-4-7-7-4z" />
               </svg>
-              Enviar postulación<span className="hidden sm:inline"> de Sponsor</span>
+              <span>
+                Enviar postulación<span className="hidden sm:inline"> de Sponsor</span>
+              </span>
             </button>
           </form>
         )}

@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Workshop de Rolling Code School: ¿Por dónde empiezo a programar? Jueves 19/11, 18:00 hs. Comprá tu entrada." />
     <title>¿Por dónde empiezo a programar? · Workshop Rolling Code School</title>
+    <script>
+      (() => {
+        try {
+          if (JSON.parse(localStorage.getItem("rc-tema")) === "claro") document.documentElement.dataset.tema = "claro";
+        } catch {
+          document.documentElement.removeAttribute("data-tema");
+        }
+      })();
+    </script>
     <link rel="icon" type="image/png" href="/src/assets/logo/fav-icon.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -12,6 +21,7 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,800;1,300&display=swap"
       rel="stylesheet"
+      crossorigin="anonymous"
     />
   </head>
   <body>

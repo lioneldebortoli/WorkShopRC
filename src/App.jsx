@@ -14,14 +14,25 @@ import { BotonArriba } from "./components/BotonArriba.jsx"
 import { Chatbot } from "./components/Chatbot.jsx"
 import { Sponsors } from "./components/Sponsors.jsx"
 import { SumateSponsor } from "./components/SumateSponsor.jsx"
+import { Testimonios } from "./components/Testimonios.jsx"
+import { PreguntasSpeakers } from "./components/PreguntasSpeakers.jsx"
+import { ENTRADAS } from "./data/entradas.js"
+import { useEvento } from "./hooks/useEvento.js"
+import { EVENTOS } from "./utils/eventos.js"
 
 function Landing() {
-  const [ticketId, setTicketId] = useState("early")
+  const [cantidades, setCantidades] = useState({ early: 0, general: 0, virtual: 0 })
 
   const irAComprar = (id) => {
-    setTicketId(id)
+    setCantidades((actuales) => (actuales[id] > 0 ? actuales : { ...actuales, [id]: 1 }))
     document.getElementById("comprar").scrollIntoView({ behavior: "smooth" })
   }
+
+  useEvento(EVENTOS.cargarEntradas, ({ id, cantidad }) => {
+    const { stock } = ENTRADAS.find((entrada) => entrada.id === id)
+    setCantidades((actuales) => ({ ...actuales, [id]: Math.min(cantidad, stock) }))
+    document.getElementById("comprar").scrollIntoView({ behavior: "smooth" })
+  })
 
   return (
     <>
@@ -31,9 +42,11 @@ function Landing() {
         <Estadisticas />
         <Speakers />
         <Agenda />
+        <PreguntasSpeakers />
         <Sponsors />
+        <Testimonios />
         <Entradas onComprar={irAComprar} />
-        <CompraSegura ticketId={ticketId} setTicketId={setTicketId} />
+        <CompraSegura cantidades={cantidades} setCantidades={setCantidades} />
         <SumateSponsor />
         <UbicacionEvento />
       </main>
