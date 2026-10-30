@@ -92,7 +92,7 @@ export default function Entradas({ onComprar }) {
               <div className="text-[28px] font-extrabold leading-none tabular-nums md:text-[40px]">
                 {String(item.value).padStart(2, "0")}
               </div>
-              <div className="mt-1.5 text-xs tracking-[2px] text-(--rc-text-mute)">{item.label}</div>
+              <div className="mt-1.5 text-[10px] tracking-[1px] text-(--rc-text-mute) min-[360px]:text-xs min-[360px]:tracking-[2px]">{item.label}</div>
             </div>
           ))}
         </div>
@@ -162,7 +162,7 @@ function Card({ card, selected, confirmed, onSelect, onBuy }) {
           : "border-(--rc-border) bg-(--rc-surface) hover:border-(--rc-red)"
       }`}
     >
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
         <h3 className="text-2xl font-extrabold">{card.nombre}</h3>
         {card.insignia && (
           <span
