@@ -64,9 +64,9 @@ export default function Entradas({ onComprar }) {
 
       <Reveal
         retraso={100}
-        className="mt-10 flex flex-col gap-8 rounded-[32px] border border-(--rc-border) bg-[linear-gradient(90deg,var(--rc-tinte),var(--rc-surface))] p-6 md:p-9 lg:flex-row lg:items-center lg:justify-between"
+        className="mt-10 flex flex-col gap-8 rounded-[32px] border border-(--rc-border) bg-[linear-gradient(90deg,var(--rc-tinte),var(--rc-surface))] p-6 md:p-9 xl:flex-row xl:items-center xl:justify-between"
       >
-        <div className="lg:max-w-[360px]">
+        <div className="xl:max-w-[360px]">
           <p className="text-sm font-extrabold uppercase tracking-[3px] text-(--rc-red)">
             Early Bird
           </p>
@@ -97,12 +97,12 @@ export default function Entradas({ onComprar }) {
           ))}
         </div>
 
-        <div className="w-full lg:w-[360px]">
-          <div className="flex justify-between text-sm">
-            <span className="font-semibold">
+        <div className="w-full xl:w-[300px] xl:shrink-0">
+          <div className="flex flex-wrap justify-between gap-x-4 gap-y-1 text-sm">
+            <span className="whitespace-nowrap font-semibold">
               Quedan {QUEDAN_EARLY_BIRD} de {CUPOS_EARLY_BIRD} Early Bird
             </span>
-            <span className="text-(--rc-text-mute)">{porcentajeVendidas}% vendidas</span>
+            <span className="whitespace-nowrap text-(--rc-text-mute)">{porcentajeVendidas}% vendidas</span>
           </div>
           <div ref={barraRef} className="mt-2 h-2 overflow-hidden rounded-full bg-(--rc-surface-2)">
             <div
